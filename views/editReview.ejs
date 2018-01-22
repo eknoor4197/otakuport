@@ -1,0 +1,52 @@
+<% include partials/header %>
+<div class="jumbotron">
+        <h1>Edit Review</h1>
+</div>
+
+<form class="ui form" action="/review/<%= review._id %>/<%= review.titleURL %>?_method=PUT" method="POST">
+
+  <div class="field">
+    <label>Title</label>
+    <input type="text" name="review[title]" value="<%= review.title %>">
+  </div>
+
+  <div class="field">
+    <label>Image</label>
+    <input type="text" name="review[image]" value="<%= review.image %>">
+  </div>
+
+  <div class="field">
+    <label>Image Source</label>
+    <input type="text" name="review[imageSource]" placeholder="image source">
+  </div>
+
+  <div class="field">
+    <label>Text</label>
+    <textarea id="MyID" name="review[body]"><%= review.body %></textarea>
+  </div>
+
+  <div class="field">
+    <label>Date</label>
+    <input type="text" name="review[date]" value="<%= review.date %>">
+  </div>
+
+  <div class="field">
+    <label>Summary</label>
+    <input type="text" name="review[intro]" value="<%= review.intro %>">
+  </div>
+
+  <div class="field">
+    <label>Featured</label>
+    <input type="text" name="review[featured]" value="<%= review.featured %>">
+  </div>
+
+  <div class="field">
+    <label>Title URL</label>
+    <input type="text" name="review[titleURL]" value="<%= review.titleURL %>">
+  </div>
+
+  <!-- <button class="ui button" type="submit">Submit</button> -->
+  <button class="ui secondary basic button">Submit</button>
+</form>
+
+<% include partials/footer %>

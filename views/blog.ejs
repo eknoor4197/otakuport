@@ -1,0 +1,115 @@
+
+<% include partials/header %>
+
+<!-- <div id="blog-page" class="jumbotron">
+        <h1>Blog</h1>
+</div> -->
+
+<div id="blog-page" class="jumbotron">
+        <a href="/blog" class="post-type">BLOG</a>
+        <!-- <h1>BLOG</h1> -->
+</div>
+
+<div class="blog-all">
+
+<div class="container blog-review-laptop">
+
+        <a href="/blog" class="post-detail trending">BLOG</a>
+
+      <div class="row">
+
+        <% blog.forEach(function(blog,index) { %>
+
+
+      <div class="col-md-4 col-sm-6 news-section">
+              
+        <div class="thumbnail">
+          <div class="img">
+            <!-- <a href="#" class="sub-category">TV</a> -->
+          <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img src="<%= blog.image %>"></a>
+          <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><h2><%= blog.title %></h2></a>
+          </div>  
+        </div>
+
+        <div class="caption">
+          <!-- <a href="/blog/<%= blog._id %>/<%= blog.title %>"><h3 style="color: #333333;"><%= blog.title %></h3></a> -->
+        </div>
+
+        <span><em>By <a class="author" href="/author/<%= blog.author.username %>"><%= blog.author.username %></a> on <%= blog.date %></em></span><br><br>
+
+
+
+      </div>
+
+      <% }) %>
+
+      </div>
+
+      </div>
+
+<!-- <div class="container news-section-laptop-container blog-review-mobile"> -->
+
+        <!-- <a href="/blog" class="post-detail trending">BLOG</a>
+
+        <% blog.forEach(function(blog,index) { %>
+
+        <div class="row blog-section-laptop">
+
+                <div class="thumbnail">
+                                <div class="img">
+                                <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img src="<%= blog.image %>"></a>
+                                </div>
+                        </div>
+
+                    <div class="caption">
+                        <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><h1><%= blog.title %></h1></a>
+                    </div>
+
+                    <div class="relative">
+                        <span> <a class="author" href="/author/<%= blog.author.username %>"><%= blog.author.username %></a> | <%= blog.date %></span>
+                        </div>
+
+
+    </div>
+
+    <hr class="style7">
+
+    <% }) %>
+
+</div>
+
+</div> -->
+
+<div class="container-more container" id="more-section-mobile"> <!-- Before 18/11, this div had a class "container-more"... -->
+
+                    <!--MOBILE VERSION-->
+
+        <a href="/blog" class="post-detail trending news-section-laptop">BLOG</a>
+
+        <% blog.forEach(function(blog,index) { %>
+
+         <div class="row blog-section-laptop">
+         <div class="thumbnail" style="margin-left: -120px;">
+                      <div class="img">
+                        <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img src="<%= blog.image %>"></a>
+                      </div>
+                 </div>
+
+                    <div class="caption">
+                        <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><h1><%= blog.title %></h1></a>
+                    </div>
+
+                    <div class="relative" style="font-size: 14px;margin-top: 10px;">
+                        <span class="author-date"> <!-- <a class="author" href="/author/<%= blog.author %>"><%= blog.author %></a> | --> <%= blog.date %></span>
+                            <!-- <p>One Punch Man Season 3starts in 2018, the production is in full gear. Watch out!</p> -->
+                        </div>
+
+        </div>
+
+        <hr class="style7">
+
+     <% }) %>
+
+     </div>
+
+<% include partials/footer %>

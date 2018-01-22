@@ -1,0 +1,154 @@
+@media only screen and (max-width: 992px) {
+
+	#main-1,.main-other {
+		width: 105.2%;
+	}
+
+	/*#main-1 {
+		width: 516px;
+	}
+
+	#main-1 img {
+		max-width: 110%;
+	}
+
+	.main-other  {
+		width: 500px;
+		right: -14px;
+	}
+
+	.main-other img {
+		max-width: 110%;
+	}
+
+	.col-md-4.col-sm-6:nth-of-type(5)>.main-other {
+		width: 515px;
+		left : 0px;
+		top: -259px;
+	}*/
+
+	.blog-review-laptop {
+		margin-left: -46px;
+	}
+
+	.col-md-3.col-md-offset-8.news-section-laptop,.news-section-laptop-container {
+		/*display: none*/
+		/*margin-left: 0px;*/
+	}
+
+	.col-md-3.col-md-offset-8 {
+		/*margin-left: 200px;*/
+	}
+
+	.featured-news-img-container {
+		margin-top : -715px;
+		height: 300px;
+	}
+
+	.featured-news-img-container-1 {
+		margin-top : 60px;
+		height: 300px;
+	}
+
+	.featured-news-img-container h3.featured-news-caption,.featured-news-img-container-1 h3.featured-news-caption {
+		font-size: 19px;
+	}
+
+	.post-type {
+		font-size: 10px;
+		border : 2px solid white;
+		padding: 2px;
+	}
+
+	.news-section-laptop-container {
+		/*width: 400px;*/
+	}
+
+	.news-section-laptop>.thumbnail {
+		/*height: 200px;*/
+	}
+
+	hr.style7 {
+		margin-left: 20px;
+	}
+
+	.blog-section-laptop>hr.style7 {
+		margin-top: -30px;
+		margin-left: -97px;
+	}
+
+	.blog-section-laptop>.caption>a>h1 {
+		margin-top: -5px;
+		/*height: 230px;*/
+	}
+
+	.news-section-laptop>.caption>a>h1, .blog-section-laptop>.caption>a>h1 {
+		font-size: 21px;
+	}
+
+	.trending {
+		margin-left: 20px;
+		font-size: 21px;
+	}
+
+	#container {
+		width: 97%;
+	}
+
+	#main-blog-content, #main-revisited-content {
+        width: 100%;
+        /*margin-top: 40px;*/
+        /*padding-bottom: 40px;*/
+        font-size: 20px;
+	}
+
+	#main-news-img img, #main-review-img img {
+        max-width: 100%;
+    }
+
+    .news-section-laptop>.thumbnail, .blog-section-laptop>.thumbnail {
+    	height: 130px;
+    	margin-left: -100px;
+    	max-width: 100%;
+    }
+
+    .blog-section>.thumbnail img {
+    	/*margin-left: -100px;*/
+    	/*max-width: 100%;*/
+    }
+
+    .blog-section-laptop>.caption {
+    	font-size: 21px;
+    }
+
+    .blog-section>.author-date {
+  		font-size: 12px;
+	}
+
+    .wrapper {
+    	/*width: 992px;*/
+    }
+
+    .laptop-trending,.trending-for-laptop,#container-more {
+        display : none;
+    }
+
+    .more-mobile,#more-section-mobile {
+        /*display : block;*/
+    }
+
+    /*PARTICULAR BLOG PAGE*/
+
+    #main-blog-title, #main-revisited-title {
+    	font-size: 30px;
+    }
+
+    #overlay>.logo {
+    	font-size: 40px;
+    }
+
+
+
+
+
+}

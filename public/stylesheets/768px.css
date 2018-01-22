@@ -1,0 +1,217 @@
+@media only screen and (max-width: 768px) {
+
+	.navbar-right {
+  		margin-top: -9px;
+	}
+
+	.navbar-right>li>a {
+  		margin-left: 40px;
+	}
+
+	.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+	  /*border : 1px solid white;*/
+	  max-height: 100vh;
+	}
+
+	.navbar-default .navbar-nav>li>a {
+		padding-top: 30px;
+		font-size: 20px;
+	}
+
+	.navbar-right {
+        padding-right: 30px;
+	}
+
+	.latest5 {
+		height: 350px;
+	}
+
+	#main-1.thumbnail {
+		height: 350px;
+	}
+
+	#main-1 > .img img {
+		height: 110%;
+	}
+
+	.main-other.thumbnail {
+		height : 250px;
+	}
+
+	.news-section-laptop-container.laptop-only {
+		display: none;
+	}
+
+	.featured-news-img-container-top {
+		display: none;
+	}
+
+	.featured-news-mobile {
+		display: block;
+		margin-left: -60px;
+		width: 95%;
+	}
+
+	.news-section-laptop>.caption,.blog-section-laptop>.caption {
+		/*width: 150%;*/
+	}
+
+	.blog-review-mobile>.news-section-laptop>.caption {
+		margin-top: 30px;
+	}
+
+	.blog-review-mobile>.news-section-laptop:nth-of-type(4) {
+		margin-bottom: -20px;
+	}
+
+	.blog-review-mobile:nth-of-type(1)>hr.style7:nth-of-type(4) {
+		display: block;
+	}
+
+	.featured-news-img-container h3.featured-news-caption,.featured-news-img-container-1 h3.featured-news-caption {
+		/*font-size: 2px;*/
+	}
+
+	.blog-review-mobile {
+  		display: block;
+	}
+
+	.news-section-laptop>.caption>a>h1, .blog-section-laptop>.caption>a>h1 {
+		font-size: 17px;
+	}
+
+	.news-section-laptop>.caption, {
+		margin-top: 25px;
+		width: 400px;
+	}
+
+	.blog-section-laptop>hr.style7 {
+		margin-top: -60px;
+	}
+
+	.blog-review-laptop, .review-section {
+		display: none;
+	}
+
+	.blog-section-laptop>hr.style7 {
+		/*margin-top: 40px;*/
+	}
+
+	.news-section-laptop-container>.blog-section-laptop {
+		/*height: 200px;*/
+		/*margin-bottom: -40px;*/
+		/*width: 90%;*/
+	}
+
+	.news-section-laptop-container>.blog-section-laptop>.thumbnail,.news-section-laptop-container>.blog-section-laptop>.thumbnail img {
+		height: 90px;
+	}
+
+	.news-section-laptop-container>.blog-section-laptop>.relative>p, .news-section-laptop-container>.news-section-laptop>.relative>p {
+		display: none;
+	}
+
+	.blog-review-mobile {
+		width: 100%;
+	}
+
+	.wrapper {
+		width: 100%;
+	}
+
+	.news-section-laptop>.caption,.blog-section-laptop>.caption {
+		width: 100%;	
+	}
+
+	.featured-blog {
+		display: block;
+		margin-left: -85px;
+		height: 500px;
+		width: 105%;
+	}
+
+	.featured-blog>.wrapper>.overlay h1 {
+		font-size: 24px;
+	}
+
+	.blog-section-laptop>.thumbnail, .news-section-laptop>.thumbnail {
+		/*height: 130px;*/
+	}
+
+	.blog-section-laptop-container, .review-section-laptop-container,.blog-section-laptop {
+		display: block;
+	}
+
+	/*MAIN NEWS PAGE*/
+
+	#main-news-title, #main-review-title {
+		font-size: 35px;
+	}
+
+	.news-summary, .review-summary {
+		font-size: 17px;
+	}
+
+	.post-type-news, .post-type-review {
+		font-size: 14px;
+	}
+
+	.news-container>.col-md-9>span, .review-container>.col-md-9>span {
+		font-size: 16px;
+	}
+
+	#main-news-content,#main-review-content {
+		font-size: 18px;
+	}
+
+	.news-imagesrc {
+		margin-top: -10px;
+		font-size: 14px;
+	}
+
+	.more-mobile,#more-section-mobile {
+        display : block;
+    }
+
+	#more-section-mobile>.blog-section-laptop>.thumbnail {
+		width: 40%;
+	}
+
+	#more-section-mobile>.blog-section-laptop>.caption {
+		margin-top: 35px;
+		width: 90%;
+	}
+
+	/*PARTICLUAR NEWS PAGE*/
+
+	#blog-page>.post-type,#news-page>.post-type,#review-page>.post-type {
+		top: 60%;
+		left: 42%;
+        font-size: 28px;
+        font-weight: 800;
+        border-style: none;
+	}
+
+	.about-container>.row>h1 {
+        font-size :35px;
+	}
+
+	.about-container>.row>p {
+        font-size: 18px;
+	}
+
+
+	.contact-container>.row>h1 {
+        font-size: 35px;
+	}
+
+
+	.contact-container p {
+        font-size: 18px;
+	}
+
+
+
+
+
+}

@@ -1,0 +1,45 @@
+<% include partials/header %>
+
+<div id="revisited-page" class="jumbotron">
+  <h1>The Anime Knight Blog!</h1>
+    <p>The most up-to-date Anime Community!</p>
+</div>
+
+<div class="container">
+    
+      <div class="row">
+
+        <% revisited.forEach(function(revisited,index) { %>
+
+        
+      <div class="col-md-4 col-sm-6">
+        <div style="margin-bottom: -20px;"><em><%= revisited.date %></em></div>
+        <div style="margin-bottom: -20px;margin-right:50px;float: right;letter-spacing: 0.7px;"><a class="author" href="#"><em><%= revisited.author %></em></a></div>
+        
+        
+        <div class="thumbnail">
+          <a href="/revisited/<%= revisited._id %>/<%= revisited.titleURL %>"><img src="<%= revisited.image %>"></a>
+        </div>
+
+        <div class="caption">
+          <a href="/revisited/<%= revisited._id %>/<%= revisited.titleURL %>"><h3><%= revisited.title %></h3></a><br>
+        </div>
+
+        <!-- <span><em>By <a class="author" href="#"><%= revisited.author %></a></em></span><br><br> -->
+
+        <!-- <span><%= revisited.created.toDateString(); %></span> -->
+
+        <!-- <div class="relative">
+          <p><%- revisited.body.substring(0,275); %></p>
+          <div class="absolute"></div>
+      </div> -->
+        
+      </div>
+
+      <% }) %>
+
+      </div>
+
+</div>
+
+<% include partials/footer %>

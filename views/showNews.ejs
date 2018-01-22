@@ -1,0 +1,150 @@
+<% include partials/header %>
+
+<div class="container news-container">
+
+<div class="row">
+
+  <a href="/news" class="post-type-news">NEWS</a> 
+
+  <h1 id="main-news-title"><%= news.title %></h1>
+
+  <div class="col-md-9">
+
+        <!-- <h1 id="main-news-title"><%= news.title %></h1> -->
+
+        <h2 class="news-summary"><em><%= news.intro %></em></h2>
+
+        <span class="news-author"> By <a class="author" href="/author/<%= news.author.username %>"><%= news.author.username %></a> on <%= news.date %></span><br><br>
+
+        <div id="main-news-img"><img src="<%= news.image %>"></div>
+        <h2 class="news-imagesrc"><%= news.imageSource %></h2>
+        <hr class="style7" style="margin-left : 0px;margin-top : -5px;max-width: 90.3%;">
+
+        <div class="social-share">
+      <a id="fb-share" href="http://www.facebook.com/share.php?u=[URL]&title=[TITLE]"><i class="fa fa-facebook"></i>SHARE</a>
+      <a id="twitter-share" href="http://twitter.com/intent/tweet?status=<%=fullUrl %>"><i class="fa fa-twitter" aria-hidden="true"></i>TWEET</a>
+      <a id="pin-share" href="http://pinterest.com/pin/create/bookmarklet/?media=[MEDIA]&url=[URL]&is_video=false&description=[TITLE]"><i class="fa fa-pinterest" aria-hidden="true"></i>PIN</a>
+    </div>
+
+        <!-- <div id="container"> -->
+
+    <div id="main-news-content"><%- news.body %></div>
+
+    <% if( currentUser && ( currentUser.username == "Eknoorpreet Singh" || currentUser.username == news.author.username) ) { %>
+
+                        <a class="ui green button" href="/news/<%= news._id %>/<%= news.titleURL %>/edit" style="margin-left : 180px;width: 200px;">Edit</a>
+
+                        <form action="/news/<%= news._id %>/<%= news.titleURL %>?_method=DELETE" method="POST">
+
+                                <button class="ui red button" style="margin-left :10px;width: 200px;">Delete</button>
+
+                        </form>
+
+        <% } %>
+
+    <!-- </div> -->
+
+    </div>
+
+    <div class="col-md-3 laptop-trending">
+
+                 <div class="related-posts-news">
+                 <h2 class="trending">TRENDING</h2>
+                        <% trending.forEach(function(trending,index) { %>
+
+                          <div class="individual-related">
+                            <div class="thumbnail-related">
+                              <div class="img">
+                                <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><img class="img-responsive" src="<%= trending.image %>"></a>
+                                <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><h3><%= trending.title %></h3></a>
+                              </div>
+                            </div>
+
+                            <div class="caption-related">
+                                <!-- <a href="/<%= trending.postType %>/<%= trending.referenceId %>"><h3><%= trending.title %></h3></a> -->
+                            </div>
+                          </div>
+
+                        <% }) %>
+                 </div>
+
+                </div>
+
+
+    </div>
+
+    <div class="container-more container" id="more-section-mobile">
+
+                    <!--MOBILE VERSION-->
+
+        <a href="/review" class="post-detail trending news-section-laptop">MORE FROM OTAKUPORT</a>
+
+        <% more.forEach(function(more,index) { %>
+
+         <div class="row blog-section-laptop">
+         <div class="thumbnail">
+                      <div class="img">
+                        <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img src="<%= more.image %>"></a>
+                      </div>
+                 </div>
+
+                    <div class="caption">
+                        <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><h1><%= more.title %></h1></a>
+                    </div>
+
+                    <div class="relative" style="font-size: 14px;margin-top: 10px;">
+                        <span class="author-date"><!-- <a class="author" href="/author/<%= more.author %>"><%= more.author %></a> | --> <%= more.date %></span>
+                        	<!-- <p>One Punch Man Season 3starts in 2018, the production is in full gear. Watch out!</p> -->
+                        </div>    
+
+        </div>
+
+        <hr class="style7">
+
+     <% }) %>
+
+     </div>
+
+     </div>
+
+     <div class="container blog-review-laptop">
+
+        <a href="/review" class="post-detail trending">MORE FROM OTAKUPORT</a>
+
+      <div class="row">
+
+        <% more.forEach(function(more,index) { %>
+
+
+      <div class="col-md-4 col-sm-6 news-section">
+              
+        <div class="thumbnail">
+          <div class="img">
+            <!-- <a href="#" class="sub-category">TV</a> -->
+          <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img src="<%= more.image %>"></a>
+          <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><h2><%= more.title %></h2></a>
+          </div>  
+        </div>
+
+        <div class="caption">
+          <!-- <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.title %>"><h3 style="color: #333333;"><%= more.title %></h3></a> -->
+        </div>
+
+        <span><em>By <a class="author" href="/author/<%= more.author %>"><%= more.author %></a> on <%= more.date %></em></span><br><br>
+
+
+
+      </div>
+
+      <% }) %>
+
+      </div>
+
+</div>
+
+
+
+<% include partials/footer %>
+
+
+

@@ -1,0 +1,39 @@
+<% include partials/header %>
+
+
+<div class="container">
+	
+
+	<form class="ui form login-container" action="/login" method="POST">
+
+	      <h1 class="logo-footer">OtakuPort</a></h1>
+
+	      <h3>LOGIN</h3>
+
+	      <!-- LOGIN WITH FACEBOOK -->
+	      <!-- <a href="/auth/facebook" id="fb">
+	        <img src="/images/facebook-button.png">
+	      </a> -->
+
+		  <div class="field">
+		    <!-- <label>Username</label> -->
+			<input type="text" style="margin-left: 200px;margin-top : 20px;width : 300px;" name="username" placeholder="username">
+		  </div>
+
+		  <div class="field">
+		    <!-- <label>Password</label> -->
+		    <input type="password" style="margin-left: 200px;margin-top : 20px;width : 300px;" name="password" placeholder="password">
+		  </div>
+		    
+
+		  <input type="submit" value="Login">
+
+		  <h3 style="margin-left: 280px;top: -20px;">New to OtakuPort?</h3>
+
+		  <a href="/register" style="margin-left : 200px;" class="register">Sign Up</a>
+
+	</form> 
+
+</div>
+
+<% include partials/footer %>

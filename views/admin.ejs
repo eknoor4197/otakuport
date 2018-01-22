@@ -1,0 +1,63 @@
+<% include partials/header %>
+
+
+<div class="jumbotron" style="color: white;margin-top: 75.5px; /* lets see */height: 89%;background-image: url('https://images3.alphacoders.com/666/thumb-1920-666312.jpg');background-size: cover;opacity: 0.8;">
+  <div class="container">
+	<h1 style="font-weight : 900;text-align: center;text-shadow: 5px 5px rgba(0,0,0,0.3);margin-left: 200px;margin-top: 100px;width: 60%;">Welcome To OtakuPort Admin</h1>
+  </div>
+</div> 
+  
+</div>
+
+<div class="container" style="height: 50%;">
+  <h1 style="font-size: 50px;text-align: center;padding-bottom: 60px;"><p>CREATE A NEW POST IN :</p></h1>
+  <ul style="text-align: center;" class="list-inline">
+	  <li><h2><a href="/news/new">News</a></h2></li>
+	  <li><h2><a href="/blog/new">Blog</a></h2></li>
+	  <li><h2><a href="/review/new">Reviews</a></h2></li>
+	  <li><h2><a href="/revisited/new">Revisited</a></h2></li>
+  </ul>
+</div>  
+
+<hr class="style7" style="margin-left:0px;width:100%">
+
+<div style="background-color:white;padding-top: 30px;">
+  <h1 style="font-size: 50px;text-align: center;">UPDATE EXISTING</h1>
+
+  	    <!-- <div class="row"> -->
+
+	    	<% article.forEach(function(article,index) { %>
+
+
+		  <div class="col-md-4 col-sm-6">
+		  		    
+		    <div class="thumbnail">
+		      <div class="img">
+		        <!-- <a href="#" class="sub-category">TV</a> -->
+		    	<a href="/<%= article.postType %>/<%= article.referenceId %>/<%= article.titleURL %>"><img src="<%= article.image %>"></a>
+		    	<a href="/<%= article.postType %>/<%= article.referenceId %>/<%= article.titleURL %>"><h2><%= article.title %></h2></a>
+		      </div>	
+		    </div>
+
+		    <!-- <div class="caption">
+		    	<a href="/article/<%= article._id %>/<%= article.title %>"><h3><%= article.title %></h3></a>
+		    </div> -->
+
+		    <span class="author-date"><em>By <a class="author" href="/author/<%= article.author %>"><%= article.author %></a> on <%= article.date %></em></span><br><br>
+
+		    <!--  <span><%= article.created.toDateString(); %></span> -->
+
+		    <!-- <div class="relative">
+			    <div class="absolute"></div>
+			</div>  -->
+		    
+		  </div>
+
+	    <% }) %>
+
+	    <!-- </div> -->
+
+
+</div>
+
+

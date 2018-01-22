@@ -1,0 +1,97 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "background-blur",
+        "scope": null,
+        "escapedName": "background-blur",
+        "name": "background-blur",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Users\\RAJEE\\Desktop\\Projects\\anime-knight"
+    ]
+  ],
+  "_from": "background-blur@latest",
+  "_id": "background-blur@0.1.3",
+  "_inCache": true,
+  "_location": "/background-blur",
+  "_nodeVersion": "5.1.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/background-blur-0.1.3.tgz_1459827150660_0.1293494610581547"
+  },
+  "_npmUser": {
+    "name": "msurguy",
+    "email": "msurguy@gmail.com"
+  },
+  "_npmVersion": "3.3.12",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "background-blur",
+    "scope": null,
+    "escapedName": "background-blur",
+    "name": "background-blur",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/background-blur/-/background-blur-0.1.3.tgz",
+  "_shasum": "4a3572d63114b3e13080e73830b9fe6e8d0c621d",
+  "_shrinkwrap": null,
+  "_spec": "background-blur",
+  "_where": "C:\\Users\\RAJEE\\Desktop\\Projects\\anime-knight",
+  "author": {
+    "name": "Maksim Surguy"
+  },
+  "bugs": {
+    "url": "https://github.com/msurguy/background-blur/issues"
+  },
+  "dependencies": {
+    "jquery": ">=1.7.1"
+  },
+  "description": "jQuery Plugin for cross-browser blurring of images",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "4a3572d63114b3e13080e73830b9fe6e8d0c621d",
+    "tarball": "https://registry.npmjs.org/background-blur/-/background-blur-0.1.3.tgz"
+  },
+  "gitHead": "f1edccd21095fafe1868efa624bba6c2bf6de774",
+  "homepage": "https://github.com/msurguy/background-blur#readme",
+  "keywords": [
+    "Blur",
+    "velocity",
+    "animation",
+    "jQuery plugin",
+    "SVG"
+  ],
+  "license": "MIT",
+  "main": "dist/background-blur.min.js",
+  "maintainers": [
+    {
+      "name": "msurguy",
+      "email": "msurguy@gmail.com"
+    }
+  ],
+  "name": "background-blur",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/msurguy/background-blur.git"
+  },
+  "scripts": {
+    "build": "gulp"
+  },
+  "version": "0.1.3"
+}

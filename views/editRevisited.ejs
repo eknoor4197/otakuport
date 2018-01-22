@@ -1,0 +1,55 @@
+<% include partials/header %>
+<div class="jumbotron">
+	<h1>Edit Revisited</h1>
+</div>
+
+<!-- <form action="/revisited/<%= revisited._id %>?_method=PUT" method="POST">
+    <input type="text" name="revisited[title]" value="<%= revisited.title %>">
+	<input type="text" name="revisited[image]" value="<%= revisited.image %>">
+	<textarea name="revisited[body]"><%= revisited.body %></textarea>
+	<input type="submit">
+</form> -->
+
+<form class="ui form" action="/revisited/<%= revisited._id %>/<%= revisited.titleURL %>?_method=PUT" method="POST">
+
+  <div class="field">
+    <label>Title</label>
+    <input type="text" name="revisited[title]" value="<%= revisited.title %>">
+    <!-- <textarea type="text" name="revisited[title]"><%= revisited.body %></textarea> -->
+  </div>
+
+  <div class="field">
+    <label>Image</label>
+    <input type="text" name="revisited[image]" value="<%= revisited.image %>">
+  </div>
+
+  <div class="field">
+    <label>Text</label>
+      <textarea id="MyID" type="text" name="revisited[body]"><%= revisited.body %></textarea>
+  </div>
+
+  <div class="field">
+    <label>Date</label>
+    <input type="text" name="revisited[date]" value="<%= revisited.date %>">
+  </div>
+
+  <div class="field">
+    <label>Summary</label>
+    <input type="text" name="revisited[summary]" value="<%= revisited.intro %>">
+  </div>
+
+  <div class="field">
+    <label>Author</label>
+    <input type="text" name="revisited[author]" value="<%= revisited.author %>">
+  </div>
+
+  <div class="field">
+    <label>Title URL</label>
+    <input type="text" name="revisited[titleURL]" value="<%= revisited.titleURL %>">
+  </div>
+
+  <button class="ui secondary basic button">Submit</button>
+</form>
+
+<% include partials/footer %>
+

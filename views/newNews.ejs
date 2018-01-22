@@ -1,0 +1,53 @@
+<% include ./partials/header %>
+
+<div class="jumbotron">
+  <h1>New Review</h1>
+</div>
+
+<form class="ui form" action="/news" method="POST">
+
+  <div class="field">
+    <label>Title</label>
+    <input type="text" name="news[title]" placeholder="title">
+  </div>
+
+  <div class="field">
+    <label>Intro</label>
+    <input type="text" name="news[intro]" placeholder="intro">
+  </div>
+
+  <div class="field">
+    <label>Image</label>
+    <input id="image" type="text" name="news[image]" placeholder="image">
+  </div>
+
+  <div class="field">
+    <label>Image Source</label>
+    <input type="text" name="news[imageSource]" placeholder="image source">
+  </div>
+
+  <div class="field">
+    <label>Body</label>
+    <textarea type="text" id="MyID" name="news[body]"></textarea> 
+  </div>
+
+  <div class="field">
+    <label>Featured</label>
+    <input type="text" name="news[featured]" placeholder="yes or no">
+  </div>
+
+  <div class="field">
+    <label>Date</label>
+    <input type="text" name="news[date]" placeholder="date">
+  </div>
+
+  <div class="field">
+    <label>Title URL</label>
+    <input type="text" name="news[titleURL]" placeholder="titleURL">
+  </div>
+  
+  <button class="ui blue button" style="margin-left: 280px;margin-top: 10px;width : 150px;">Submit</button>
+</form>
+
+
+<% include ./partials/footer %>

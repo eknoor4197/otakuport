@@ -1,0 +1,52 @@
+<% include partials/header %>
+<div class="jumbotron">
+        <h1>Edit News</h1>
+</div>
+
+<form class="ui form" action="/news/<%= news._id %>/<%= news.titleURL %>?_method=PUT" method="POST">
+
+  <div class="field">
+    <label>Title</label>
+    <input type="text" name="news[title]" value="<%= news.title %>">
+  </div>
+
+  <div class="field">
+    <label>Image</label>
+    <input type="text" name="news[image]" value="<%= news.image %>">
+  </div>
+
+  <div class="field">
+    <label>Image Source</label>
+    <input type="text" name="news[imageSource]" placeholder="image source">
+  </div>
+
+  <div class="field">
+    <label>Text</label>
+      <textarea id="MyID" type="text" name="news[body]"><%= news.body %></textarea>
+  </div>
+
+  <div class="field">
+    <label>Date</label>
+    <input type="text" name="news[date]" value="<%= news.date %>">
+  </div>
+
+  <div class="field">
+    <label>Summary</label>
+    <input type="text" name="news[intro]" value="<%= news.intro %>">
+  </div>
+
+  <div class="field">
+    <label>Featured</label>
+    <input type="text" name="news[featured]" value="<%= news.featured %>">
+  </div>
+
+  <div class="field">
+    <label>Title URL</label>
+    <input type="text" name="news[titleURL]" value="<%= news.titleURL %>">
+  </div>
+
+  <!-- <button class="ui button" type="submit">Submit</button> -->
+  <button class="ui secondary basic button">Submit</button>
+</form>
+
+<% include partials/footer %>

@@ -1,0 +1,51 @@
+<% include partials/header %>
+
+<div class="container">
+
+	<form class="ui form" action="/register" method="POST">
+
+		<h1 class="logo-footer" style="color: black;margin-left : 250px;">OtakuPort</a></h1>
+
+	      <h3 style="color: black;margin-top : 80px;margin-left : 200px;">SIGN UP</h3>
+
+	    <div class="field">
+	    <!-- <label>Username</label> -->
+		  <input type="text" name="username" placeholder="username" style="margin-left: 200px;margin-top : 20px;width : 300px;">
+	    </div>	
+
+		<div class="field">
+		<!-- <label>Password</label> -->
+		  <input type="password" name="password" placeholder="password" style="margin-left: 200px;margin-top : 10px;width : 300px;">
+		</div>
+
+		<div class="field">
+		<!-- <label>Profile Picture</label> -->
+		  <input type="text" name="profilePic" placeholder="profile Picture" style="margin-left: 200px;margin-top : 10px;width : 300px;">
+		</div>
+
+		<div class="field">
+		<!-- <label>Bio</label> -->
+		  <!-- <input type="text" name="bio" placeholder="bio" style="margin-left: 200px;margin-top : 10px;width : 300px;"> -->
+
+		   <textarea type="text" id="MyID" name="bio"></textarea> 
+		</div>
+
+		<!-- <div class="field">
+		<label>Email</label>
+		  <input type="email" name="email" placeholder="Email">
+		</div> -->
+
+		<input type="submit" value="Sign Up">
+
+		<h3 style="margin-left: 280px;">Already have an account?</h3>
+
+		<a href="/login" style="margin-left : 200px;" class="login">Login</a>
+
+		<!-- <a href="/login" class="ui green button" role="button" style="margin-left: 280px;margin-top: 10px;width : 150px;">Login</a> -->
+		<!-- <a class="ui secondary basic button" href="/register">Sign Up</a> -->
+
+	</form>
+
+</div>
+
+<% include partials/footer %>
