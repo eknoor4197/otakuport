@@ -64,7 +64,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/otakureport");
+mongoose.connect("mongodb://localhost/otakuport");
 
 // app.set('views', path.join(__dirname, 'views'));
 app.set("view engine","ejs");
