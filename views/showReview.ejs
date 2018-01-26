@@ -15,7 +15,7 @@
     <span class="news-author">By <a class="author" href="/author/<%= review.author.username %>"><%= review.author.username %></a> on <%= review.date %></span><br><br>
 
         <div id="main-review-img"><img src="<%= review.image %>"></div>
-        <h2 class="news-imagesrc"><%= review.imageSource %></h2>
+        <h2 class="news-imagesrc">Image Credit: <%= review.imageCredit %></h2>
         <hr class="style7" style="margin-left : 0px;margin-top : -5px;max-width: 90.3%;">
 
         <div class="social-share">
@@ -25,6 +25,8 @@
     </div>
 
       <div id="main-review-content"><%- review.body %></div>
+
+      <div class="fb-comments" data-href="https://otakuport.com" data-width="100%" data-numposts="100"></div>
 
         <% if( currentUser && ( currentUser.username == "Eknoorpreet Singh" || currentUser.username == review.author.username) ) { %>
 

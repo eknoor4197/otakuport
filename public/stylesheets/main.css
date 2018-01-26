@@ -979,6 +979,17 @@ div#navbar-particular-blog {
         margin-bottom: 20px;
 }
 
+#main-blog-content p a, #main-news-content p a, #main-review-content p a {
+  color: rgba(0,0,0,0.87);
+  font-style: italic;
+  border-bottom: 2px solid #f9493b;
+  padding-bottom: 1px;
+}
+
+#main-blog-content p a:hover, #main-news-content p a:hover, #main-review-content p a:hover {
+  color: rgba(0,0,0,0.87);
+}
+
 .logo,.logo-footer {
         position: relative;
         /*top: 100px;*/
@@ -1521,6 +1532,13 @@ div.col-md-8 img {
 
 .author-bio {
   width: 100%;
+}
+
+.author-bio a {
+  color: #888;
+  font-style: italic;
+  border-bottom: 2px solid #888;
+  padding-bottom: 1px;
 }
 
 .author-info > * {

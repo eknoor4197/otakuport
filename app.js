@@ -292,8 +292,8 @@ app.get("/blog/:id/:titleURL/edit", function(req,res) {
 		if(err) {
 			res.redirect("/blog");
 		} else {
-			console.log(foundBlog.author);
-			console.log(req.user.username);
+			// console.log(foundBlog.author);
+			// console.log(req.user.username);
 			if( (req.user.username == "Eknoorpreet Singh") || (foundBlog.author.username == req.user.username) ) {
 				res.render("editBlog", {blog : foundBlog, title: "Edit Blog"});
 			} else {
@@ -318,7 +318,7 @@ app.put("/blog/:id/:titleURL", function(req,res) {
 		} else {
 			Article.findOne({referenceId : req.params.id}, function(err,updatedArticle) {
 				if(!err) {
-				  console.log(updatedBlog); 
+				  // console.log(updatedBlog); 
 				  updatedArticle.referenceId = updatedBlog._id;
 	        	  updatedArticle.postType = "blog";
 	        	  updatedArticle.image = updatedBlog.image;
@@ -399,7 +399,7 @@ app.post("/review", isLoggedIn, function(req,res) {
 	        	created : newReview.created
 	        });
 			res.redirect("/review");
-			console.log(newReview.author);
+			// console.log(newReview.author);
 		}
 	})
 })
@@ -451,8 +451,8 @@ app.get("/review/:id/:titleURL/edit", function(req,res) {
 		if(err) {
 			res.redirect("/review");
 		} else {
-			console.log(foundReview.author);
-			console.log(req.user.username);
+			// console.log(foundReview.author);
+			// console.log(req.user.username);
 			if( (req.user.username == "eknoor") || (foundReview.author.username == req.user.username) ) {
 				res.render("editReview", {review : foundReview, title: "Edit Review"});
 			} else {
@@ -603,8 +603,8 @@ app.get("/news/:id/:titleURL/edit", function(req,res) {
 		if(err) {
 			res.redirect("/news");
 		} else {
-			console.log(foundNews.author);
-			console.log(req.user.username);
+			// console.log(foundNews.author);
+			// console.log(req.user.username);
 			if( (req.user.username == "eknoor") || (foundNews.author.username == req.user.username) ) {
 				res.render("editNews", {news : foundNews, title: "Edit News"});
 			} else {
@@ -628,7 +628,7 @@ app.put("/news/:id/:titleURL", function(req,res) {
 		} else {
 			Article.findOne({referenceId : req.params.id}, function(err,updatedArticle) {
 				if(!err) {
-				console.log(updatedNews); 
+				// console.log(updatedNews); 
 				updatedArticle.referenceId = updatedNews._id;
 	        	updatedArticle.postType = "news";
 	        	updatedArticle.image = updatedNews.image;
@@ -749,8 +749,8 @@ app.get("/revisited/:id/:titleURL/edit", function(req,res) {
 		if(err) {
 			res.redirect("/revisited");
 		} else {
-			console.log(foundRevisited.author);
-			console.log(req.user.username);
+			// console.log(foundRevisited.author);
+			// console.log(req.user.username);
 			if( (req.user.username == "eknoor") || (foundRevisited.author == req.user.username) ) {
 				res.render("editRevisited", {revisited : foundRevisited , title : "Edit Revisited" });
 			} else {
@@ -889,11 +889,12 @@ app.get("/author/:name", function(req,res,next) {
 			console.log(err);
 			next();
 		} else {
-			console.log(user);
+			// console.log(user);
 			// console.log(user[0]["username"]);
 			res.locals.name = req.params.name;
 			res.locals.user = user[0];
 			res.locals.title = req.params.name + " | OtakuPort";
+			res.locals.user.bio = marked( user[0].bio );
 			res.render("showAuthor", res.locals);
 
 		}
@@ -982,5 +983,5 @@ function isLoggedIn(req,res,next) {
 }
 
 app.listen(3000,function() {
-	console.log("Server has started!");
+	console.log("OtakuPort has started!");
 });
