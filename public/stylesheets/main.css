@@ -1,7 +1,7 @@
-------------------
+/*------------------
 GIT BASH
 ------------------
-
+*/
 html,
 body {
         height: 100%;
@@ -858,6 +858,28 @@ span.author-date {
         height: 200px;
 }
 
+.jumbotron {
+  text-align: center;
+}
+
+.form {
+        width : 100%;
+        padding: 10%;
+}
+
+.field {
+  padding: 10px;
+}
+
+.field label {
+        font-size: 22px;
+}
+
+.field input {
+        width : 100%;
+        padding: 7px;
+}
+
 /*PARTICULAR BLOG PAGE*/
 
 div#navbar-particular-blog {
@@ -923,11 +945,11 @@ div#navbar-particular-blog {
         margin-top: 50px;
 }
 
-#fb-share, #twitter-share,#pin-share {
+#fb-share, #twitter-share,#pin-share, #reddit-share {
         margin-left: 10px;
         padding : 7px 12px;
         border-radius: 0px;
-                color: white;
+        color: white;
         letter-spacing: 1px;
         font-size: 12px;
 }
@@ -937,7 +959,7 @@ div#navbar-particular-blog {
         border : 1px solid #284878;
 }
 
-#fb-share i , #twitter-share i , #pin-share i {
+#fb-share i , #twitter-share i , #pin-share i, #reddit-share i {
         padding-right: 10px;
 }
 
@@ -949,6 +971,11 @@ div#navbar-particular-blog {
 #pin-share {
         background-color: #A61C21;
         border : 1px solid #A61C21;
+}
+
+#reddit-share {
+        background-color: #FF5700;
+        border : 1px solid #FF5700;
 }
 
 .blog-author, .news-author {
@@ -973,7 +1000,7 @@ div#navbar-particular-blog {
         font-size: 20px;
 }
 
-#main-blog-content img {
+#main-blog-content img, #main-news-content img, #main-review-content img, #main-revisited-content img {
         width : 800px;
         height: 500px;
         margin-bottom: 20px;
@@ -1430,7 +1457,7 @@ a.register, a.login {
 }
 
 .news-imagesrc {
-	 margin-top:-15px;
+     margin-top: -15px;
      color: #333333;
      color: #88888C;
      font-size:15px;

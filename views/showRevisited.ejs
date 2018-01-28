@@ -40,11 +40,11 @@
 
 	      <div id="container">
 
-            <div class="social-share">  
-              <a id="fb-share" href="http://www.facebook.com/share.php?u=[URL]&title=[TITLE]"><i class="fa fa-facebook"></i>SHARE</a>
-              <a id="twitter-share" href="http://twitter.com/intent/tweet?status=<%=fullUrl %>"><i class="fa fa-twitter" aria-hidden="true"></i>TWEET</a>
-              <a id="pin-share" href="http://pinterest.com/pin/create/bookmarklet/?media=[MEDIA]&url=[URL]&is_video=false&description=[TITLE]"><i class="fa fa-pinterest" aria-hidden="true"></i>PIN</a>
-            </div>  
+            <div class="social-share">
+	          <a id="fb-share" href="http://www.facebook.com/share.php?text=<%= revisited.title %> & u=<%= fullUrl %>" target="_blank"><i class="fa fa-facebook"></i>SHARE</a>
+	          <a id="twitter-share" href="https://twitter.com/share?url=<%= fullUrl %>&text=<%= revisited.title %>" target="_blank" title="Share on Twitter"><i class="fa fa-twitter" aria-hidden="true"></i>TWEET</a></a>
+	          <a id="reddit-share" href="https://reddit.com/submit?title=<%= revisited.title %>&url=<%= fullUrl %>"><i class="fa fa-reddit-alien"></i>SHARE</a>
+	        </div>  
 
 			<div id="main-revisited-content"> <%- revisited.body %> </div>
 

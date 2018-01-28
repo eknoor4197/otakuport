@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var latestSchema = new mongoose.Schema({
+var ArticleSchema = new mongoose.Schema({
     referenceId : {
         type : mongoose.Schema.Types.ObjectId
     },
@@ -9,13 +9,14 @@ var latestSchema = new mongoose.Schema({
     title : String,
     body : String,
     rating : String,
-    imageSource : String,
+    imageCredit : String,
     intro : String,
     author : String,
     date: String,
     featured : String,
+    tags: [String],
     titleURL : String,
 	created : {type : Date, default : Date.now()}
 });
 
-module.exports = mongoose.model("Article", latestSchema);
+module.exports = mongoose.model("Article", ArticleSchema);

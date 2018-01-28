@@ -215,9 +215,15 @@ app.get("/blog/new", isLoggedIn, function(req,res) {
 app.post("/blog", isLoggedIn, function(req,res) {
 	// req.body.blog.body = req.sanitize(req.body.blog.body);
 
+	req.body.blog.tags = req.body.blog.tags.split(",");
    	 
    	 var newlyCreated = req.body.blog;
-   	 newlyCreated.author = req.user;
+	// newlyCreated.author = req.user;
+   	newlyCreated.author = {
+   		id : req.user._id,
+    	username : req.user.username
+   	}
+   	// var articleAuthor = newlyCreated.author.username;
     
     Blog.create(newlyCreated,function(err,newBlog) {
     	
@@ -233,6 +239,7 @@ app.post("/blog", isLoggedIn, function(req,res) {
 	        	imageCredit : newBlog.imageCredit,
 	        	body : newBlog.body,
 	        	featured : newBlog.featured,
+	        	tags : newBlog.tags,
 	        	date : newBlog.date,
 	        	titleURL : newBlog.titleURL,
 	        	author : newBlog.author.username,
@@ -377,8 +384,15 @@ app.get("/review/new", isLoggedIn, function(req,res) {
 //NEW REVIEW - CREATE
 app.post("/review", isLoggedIn, function(req,res) {
 
+	req.body.review.tags = req.body.review.tags.split(",");
+
 	var newlyCreated = req.body.review;
-   	newlyCreated.author = req.user;
+	// newlyCreated.author = req.user;
+   	newlyCreated.author = {
+   		id : req.user._id,
+    	username : req.user.username
+   	}
+   	// var articleAuthor = newlyCreated.author.username;
 
 	Review.create(newlyCreated, function(err,newReview) {
 		if(err) {
@@ -393,6 +407,7 @@ app.post("/review", isLoggedIn, function(req,res) {
 	        	imageCredit : newReview.imageCredit,
 	        	body : newReview.body,
 	        	featured : newReview.featured,
+	        	tags : newReview.tags,
 	        	date : newReview.date,
 	        	titleURL : newReview.titleURL,
 	        	author : newReview.author.username,
@@ -532,8 +547,15 @@ app.get("/news/new", isLoggedIn , function(req,res) {
 //NEW NEWS - CREATE
 app.post("/news",isLoggedIn, function(req,res) {
 
+	req.body.news.tags = req.body.news.tags.split(",");
+
 	var newlyCreated = req.body.news;
-   	newlyCreated.author = req.user;
+	// newlyCreated.author = req.user;
+   	newlyCreated.author = {
+   		id : req.user._id,
+    	username : req.user.username
+   	}
+   	// var articleAuthor = newlyCreated.author.username;
 
 	News.create(newlyCreated,function(err,newNews) {
 		if(err) {
@@ -548,6 +570,7 @@ app.post("/news",isLoggedIn, function(req,res) {
 	        	imageCredit : newNews.imageCredit,
 	        	body : newNews.body,
 	        	featured : newNews.featured,
+	        	tags : newNews.tags,
 	        	date : newNews.date,
 	        	titleURL : newNews.titleURL,
 	        	author : newNews.author.username,
@@ -688,8 +711,15 @@ app.get("/revisited/new", isLoggedIn, function(req,res) {
 app.post("/revisited",isLoggedIn, function(req,res) {
 	// req.body.blog.body = req.sanitize(req.body.blog.body);
 
+	req.body.revisited.tags = req.body.revisited.tags.split(",");
+
 	var newlyCreated = req.body.revisited;
-   	newlyCreated.author = req.user;
+	// newlyCreated.author = req.user;
+   	newlyCreated.author = {
+   		id : req.user._id,
+    	username : req.user.username
+   	}
+   	// var articleAuthor = newlyCreated.author.username;
 
 	Revisited.create(req.body.revisited,function(err,newRevisited) {
 		if(err) {
@@ -704,6 +734,7 @@ app.post("/revisited",isLoggedIn, function(req,res) {
 	        	imageCredit : newRevisited.imageCredit,
 	        	body : newRevisited.body,
 	        	featured : newRevisited.featured,
+	        	tags : newRevisited.tags,
 	        	date : newRevisited.date,
 	        	titleURL : newRevisited.titleURL,
 	        	author : newRevisited.author.username,

@@ -17,14 +17,14 @@
         <span class="news-author"> By <a class="author" href="/author/<%= news.author.username %>"><%= news.author.username %></a> on <%= news.date %></span><br><br>
 
         <div id="main-news-img"><img src="<%= news.image %>"></div>
-        <h2 class="news-imagesrc">Image Credit: <%= news.imageCredit %></h2>
-        <hr class="style7" style="margin-left : 0px;margin-top : -5px;max-width: 90.3%;">
+        <!-- <h2 class="news-imagesrc"><%= news.imageCredit %></h2> -->
+        <!-- <hr class="style7" style="margin-left : 0px;margin-top : -5px;max-width: 90.3%;"> -->
 
         <div class="social-share">
-      <a id="fb-share" href="http://www.facebook.com/share.php?u=[URL]&title=[TITLE]"><i class="fa fa-facebook"></i>SHARE</a>
-      <a id="twitter-share" href="http://twitter.com/intent/tweet?status=<%=fullUrl %>"><i class="fa fa-twitter" aria-hidden="true"></i>TWEET</a>
-      <a id="pin-share" href="http://pinterest.com/pin/create/bookmarklet/?media=[MEDIA]&url=[URL]&is_video=false&description=[TITLE]"><i class="fa fa-pinterest" aria-hidden="true"></i>PIN</a>
-    </div>
+          <a id="fb-share" href="http://www.facebook.com/share.php?text=<%= news.title %> & u=<%= fullUrl %>" target="_blank"><i class="fa fa-facebook"></i>SHARE</a>
+          <a id="twitter-share" href="https://twitter.com/share?url=<%= fullUrl %>&text=<%= news.title %>" target="_blank" title="Share on Twitter"><i class="fa fa-twitter" aria-hidden="true"></i>TWEET</a></a>
+          <a id="reddit-share" href="https://reddit.com/submit?title=<%= news.title %>&url=<%= fullUrl %>"><i class="fa fa-reddit-alien"></i>SHARE</a>
+        </div>
 
         <!-- <div id="container"> -->
 
