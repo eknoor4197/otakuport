@@ -15,19 +15,29 @@
     <input type="text" name="review[intro]" value="<%= review.intro %>">
   </div>
 
-  <div class="field">
+   <div class="field">
     <label>Image</label>
-    <input type="text" name="review[image]" value="<%= review.image %>">
+    <input id="image" type="text" name="review[image.src]" value="<%= review.image.src %>">
+  </div>
+
+  <div class="field">
+    <label>Image Alt</label>
+    <input type="text" name="review[image.alt]" value="<%= review.image.alt %>">
   </div>
 
   <div class="field">
     <label>Image Credit</label>
-    <input type="text" name="review[imageCredit]" placeholder="image credit" value="<%= review.imageCredit %>">
+    <input type="text" name="review[image.credit]" value="<%= review.image.credit %>">
   </div>
 
   <div class="field">
-    <label>Text</label>
+    <label>Body</label>
     <textarea id="MyID" name="review[body]"><%= review.body %></textarea>
+  </div>
+
+  <div class="field">
+    <label>Rating</label>
+    <input name="review[rating]" value="<%= review.rating %>">
   </div>
 
   <div class="field">

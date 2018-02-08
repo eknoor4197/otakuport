@@ -25,12 +25,17 @@
 
   <div class="field">
     <label>Image</label>
-    <input type="text" name="blog[image]" value="<%= blog.image %>">
+    <input id="image" type="text" name="blog[image.src]" value="<%= blog.image.src %>">
+  </div>
+
+  <div class="field">
+    <label>Image Alt</label>
+    <input type="text" name="blog[image.alt]" value="<%= blog.image.alt %>">
   </div>
 
   <div class="field">
     <label>Image Credit</label>
-    <input type="text" name="blog[imageCredit]" placeholder="image credit" value="<%= blog.imageCredit %>">
+    <input type="text" name="blog[image.credit]" value="<%= blog.image.credit %>">
   </div>
 
   <div class="field">

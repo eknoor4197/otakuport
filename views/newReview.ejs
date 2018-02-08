@@ -18,17 +18,27 @@
 
   <div class="field">
     <label>Image</label>
-    <input id="image" type="text" name="review[image]" placeholder="image">
+    <input id="image" type="text" name="review[image.src]" placeholder="image src">
+  </div>
+
+  <div class="field">
+    <label>Image Alt</label>
+    <input type="text" name="review[image.alt]" placeholder="image alt">
   </div>
 
   <div class="field">
     <label>Image Credit</label>
-    <input type="text" name="review[imageCredit]" placeholder="image credit">
+    <input type="text" name="review[image.credit]" placeholder="image credit">
   </div>
 
   <div class="field">
     <label>Body</label>
-    <textarea type="text" id="MyID" name="review[body]"></textarea> 
+    <textarea type="text" id="MyID" name="review[body]"></textarea>
+  </div>
+
+  <div class="field">
+    <label>Rating</label>
+    <input type="text" name="review[rating]" placeholder="rating">
   </div>
 
   <div class="field">
@@ -50,7 +60,7 @@
     <label>Title URL</label>
     <input type="text" name="review[titleURL]" placeholder="titleURL">
   </div>
-  
+
   <button class="ui blue button" style="margin-left: 280px;margin-top: 10px;width : 150px;">Submit</button>
 </form>
 

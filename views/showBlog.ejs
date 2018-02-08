@@ -4,7 +4,7 @@
 
 <div class="row">
 
-  <a href="/blog" class="post-type-news">BLOG</a> 
+  <a href="/blog" class="post-type-news">BLOG</a>
 
   <h1 id="main-news-title"><%= blog.title %></h1>
 
@@ -16,7 +16,7 @@
 
         <span class="news-author"> By <a class="author" href="/author/<%= blog.author.username %>"><%= blog.author.username %></a> on <%= blog.date %></span><br><br>
 
-        <div id="main-news-img"><img src="<%= blog.image %>"></div>
+        <div id="main-news-img"><img alt="<%= blog.image.alt %>" src="/uploads/<%= blog.image.src %>"></div>
         <!-- <h2 class="news-imagesrc"><%= blog.imageCredit %></h2> -->
         <!-- <hr class="style7" style="margin-left : 0px;margin-top : -5px;max-width: 90.3%;"> -->
 
@@ -32,9 +32,9 @@
 
     <div class="fb-comments" data-href="https://otakuport.com" data-width="100%" data-numposts="100"></div>
 
-    <% if( currentUser && ( currentUser.username == "Eknoorpreet Singh" || currentUser.username == news.author.username) ) { %>
+    <% if( currentUser && ( currentUser.username == "Eknoorpreet Singh" || currentUser.username == blog.author.username) ) { %>
 
-                        <a class="ui green button" href="/news/<%= blog._id %>/<%= news.titleURL %>/edit" style="margin-left : 180px;width: 200px;">Edit</a>
+                        <a class="ui green button" href="/blog/<%= blog._id %>/<%= blog.titleURL %>/edit" style="margin-left : 180px;width: 200px;">Edit</a>
 
                         <form action="/blog/<%= blog._id %>/<%= blog.titleURL %>?_method=DELETE" method="POST">
 
@@ -57,7 +57,7 @@
                           <div class="individual-related">
                             <div class="thumbnail-related">
                               <div class="img">
-                                <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><img class="img-responsive" src="<%= trending.image %>"></a>
+                                <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><img class="img-responsive" alt="<%= trending.image.alt %>" src="/uploads/<%= trending.image.src %>"></a>
                                 <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><h3><%= trending.title %></h3></a>
                               </div>
                             </div>
@@ -86,7 +86,7 @@
          <div class="row blog-section-laptop">
          <div class="thumbnail">
                       <div class="img">
-                        <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img src="<%= more.image %>"></a>
+                        <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img alt="<%= more.image.alt %>" src="/uploads/<%= more.image.src %>"></a>
                       </div>
                  </div>
 
@@ -95,8 +95,8 @@
                     </div>
 
                     <div class="relative" style="font-size: 14px;margin-top: 10px;">
-                        <span class="author-date"> <!-- <a class="author" href="/author/<%= more.author %>"><%= more.author %></a> | --> <%= more.date %></span>
-                        </div>    
+                        <span class="author-date"> <a class="author" href="/author/<%= more.author %>"><%= more.author %></a> | <%= more.date %></span>
+                        </div>
 
         </div>
 
@@ -118,13 +118,13 @@
 
 
       <div class="col-md-4 col-sm-6 news-section">
-              
+
         <div class="thumbnail">
           <div class="img">
             <!-- <a href="#" class="sub-category">TV</a> -->
-          <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img src="<%= more.image %>"></a>
+          <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img alt="<%= more.image.alt %>" src="/uploads/<%= more.image.src %>"></a>
           <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><h2><%= more.title %></h2></a>
-          </div>  
+          </div>
         </div>
 
         <div class="caption">
@@ -146,6 +146,4 @@
 
 
 <% include partials/footer %>
-
-
 

@@ -17,12 +17,17 @@
 
   <div class="field">
     <label>Image</label>
-    <input type="text" name="news[image]" value="<%= news.image %>">
+    <input id="image" type="text" name="news[image.src]" value="<%= news.image.src %>">
+  </div>
+
+  <div class="field">
+    <label>Image Alt</label>
+    <input type="text" name="news[image.alt]" value="<%= news.image.alt %>">
   </div>
 
   <div class="field">
     <label>Image Credit</label>
-    <input type="text" name="news[imageCredit]" placeholder="image credit" value="<%= news.imageCredit %>">
+    <input type="text" name="news[image.credit]" value="<%= news.image.credit %>">
   </div>
 
   <div class="field">
@@ -55,3 +60,6 @@
 </form>
 
 <% include partials/footer %>
+
+
+

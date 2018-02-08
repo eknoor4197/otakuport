@@ -17,13 +17,13 @@
 
 
       <div class="col-md-4 col-sm-6 news-section">
-              
+
         <div class="thumbnail">
           <div class="img">
             <!-- <a href="#" class="sub-category">TV</a> -->
-          <a href="/news/<%= news._id %>/<%= news.titleURL %>"><img src="<%= news.image %>"></a>
+          <a href="/news/<%= news._id %>/<%= news.titleURL %>"><img alt="<%= news.image.alt %>" src="/uploads/<%= news.image.src %>"></a>
           <a href="/news/<%= news._id %>/<%= news.titleURL %>"><h2><%= news.title %></h2></a>
-          </div>  
+          </div>
         </div>
 
         <div class="caption">
@@ -53,7 +53,7 @@
          <div class="row blog-section-laptop">
          <div class="thumbnail" style="margin-left: -120px;">
                       <div class="img">
-                        <a href="/news/<%= news._id %>/<%= news.titleURL %>"><img src="<%= news.image %>"></a>
+                        <a href="/news/<%= news._id %>/<%= news.titleURL %>"><img alt="<%= news.image.alt %>" src="/uploads/<%= news.image.src %>"></a>
                       </div>
                  </div>
 
@@ -77,5 +77,3 @@
 </div>
 
 <% include partials/footer %>
-
-

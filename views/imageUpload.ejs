@@ -1,0 +1,24 @@
+<% include ./partials/header %>
+
+<h1>Upload Image To The Server</h1>
+
+<form class="ui form" action="/api" method="POST" enctype="multipart/form-data">
+
+        <div class="field">
+            <label>Image Upload</label>
+            <%= typeof msg != 'undefined' ? msg : '' %>
+            <!-- <input type="file" id="imgupload" name="myImage" style="display:none">  -->
+            <input type="file" id="imgupload" name="OtakuPort">
+            <input type="text" id="imgName" name="name">
+            <!-- <a class="btn btn-default" id="OpenImgUpload">Image Upload</a> -->
+        </div>
+
+  <button class="ui blue button" style="margin-left: 280px;margin-top: 10px;width : 150px;">Submit</button>
+
+
+                        <h4><%= imageName %> uploaded!</h4>
+
+</form>
+
+<% include ./partials/footer %>
+

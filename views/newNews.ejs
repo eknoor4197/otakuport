@@ -18,17 +18,22 @@
 
   <div class="field">
     <label>Image</label>
-    <input id="image" type="text" name="news[image]" placeholder="image">
+    <input id="image" type="text" name="news[image.src]" placeholder="image src">
+  </div>
+
+  <div class="field">
+    <label>Image Alt</label>
+    <input type="text" name="news[image.alt]" placeholder="image alt">
   </div>
 
   <div class="field">
     <label>Image Credit</label>
-    <input type="text" name="news[imageCredit]" placeholder="image credit">
+    <input type="text" name="news[image.credit]" placeholder="image credit">
   </div>
 
   <div class="field">
     <label>Body</label>
-    <textarea type="text" id="MyID" name="news[body]"></textarea> 
+    <textarea type="text" id="MyID" name="news[body]"></textarea>
   </div>
 
   <div class="field">
@@ -50,9 +55,11 @@
     <label>Title URL</label>
     <input type="text" name="news[titleURL]" placeholder="titleURL">
   </div>
-  
+
   <button class="ui blue button" style="margin-left: 280px;margin-top: 10px;width : 150px;">Submit</button>
 </form>
 
 
 <% include ./partials/footer %>
+
+

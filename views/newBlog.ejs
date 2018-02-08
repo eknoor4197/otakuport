@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 
 <div class="jumbotron">
-	<h1>New Blog</h1>
+        <h1>New Blog</h1>
 </div>
 
 <!-- <form action="/blog" method="POST">
@@ -25,17 +25,22 @@
 
   <div class="field">
     <label>Image</label>
-    <input id="image" type="text" name="blog[image]" placeholder="image">
+    <input id="image" type="text" name="blog[image.src]" placeholder="image src">
+  </div>
+
+  <div class="field">
+    <label>Image Alt</label>
+    <input type="text" name="blog[image.alt]" placeholder="image alt">
   </div>
 
   <div class="field">
     <label>Image Credit</label>
-    <input type="text" name="blog[imageCredit]" placeholder="image credit">
+    <input type="text" name="blog[image.credit]" placeholder="image credit">
   </div>
 
   <div class="field">
     <label>Body</label>
-    <textarea type="text" id="MyID" name="blog[body]"></textarea> 
+    <textarea type="text" id="MyID" name="blog[body]"></textarea>
   </div>
 
   <div class="field">
@@ -49,7 +54,7 @@
   </div>
 
   <div class="field">
-  	<label>Date</label>
+        <label>Date</label>
     <input type="text" name="blog[date]" placeholder="date">
   </div>
 
@@ -57,7 +62,7 @@
     <label>Title URL</label>
     <input type="text" name="blog[titleURL]" placeholder="titleURL">
   </div>
-  
+
   <button class="ui blue button" style="margin-left: 280px;margin-top: 10px;width : 150px;">Submit</button>
 </form>
 

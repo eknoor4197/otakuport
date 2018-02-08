@@ -22,13 +22,13 @@
 
 
       <div class="col-md-4 col-sm-6 news-section">
-              
+
         <div class="thumbnail">
           <div class="img">
             <!-- <a href="#" class="sub-category">TV</a> -->
-          <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img src="<%= blog.image %>"></a>
+          <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img alt="<%= blog.image.alt %>" src="/uploads/<%= blog.image.src %>"></a>
           <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><h2><%= blog.title %></h2></a>
-          </div>  
+          </div>
         </div>
 
         <div class="caption">
@@ -57,7 +57,7 @@
 
                 <div class="thumbnail">
                                 <div class="img">
-                                <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img src="<%= blog.image %>"></a>
+                                <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img alt="<%= blog.image.alt %>" src="/uploads/<%= blog.image.src %>"></a>
                                 </div>
                         </div>
 
@@ -91,7 +91,7 @@
          <div class="row blog-section-laptop">
          <div class="thumbnail" style="margin-left: -120px;">
                       <div class="img">
-                        <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img src="<%= blog.image %>"></a>
+                        <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img alt="<%= blog.image.alt %>" src="/uploads/<%= blog.image.src %>"></a>
                       </div>
                  </div>
 
@@ -113,3 +113,4 @@
      </div>
 
 <% include partials/footer %>
+

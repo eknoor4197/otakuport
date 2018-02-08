@@ -4,7 +4,7 @@
 
   <div class="row">
 
-  		<a href="/review" class="post-type-news">REVIEW</a> 
+                <a href="/review" class="post-type-news">REVIEW</a>
 
         <h1 id="main-review-title"><%= review.title %></h1>
 
@@ -14,7 +14,7 @@
 
     <span class="news-author">By <a class="author" href="/author/<%= review.author.username %>"><%= review.author.username %></a> on <%= review.date %></span><br><br>
 
-        <div id="main-review-img"><img src="<%= review.image %>"></div>
+        <div id="main-review-img"><img alt="<%= review.image.alt %>" src="/uploads/<%= review.image.src %>"></div>
         <!-- <h2 class="news-imagesrc"><%= review.imageCredit %></h2> -->
         <!-- <hr class="style7" style="margin-left : 0px;margin-top : -5px;max-width: 90.3%;"> -->
 
@@ -51,7 +51,7 @@
                           <div class="individual-related">
                             <div class="thumbnail-related">
                               <div class="img">
-                                <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><img class="img-responsive" src="<%= trending.image %>"></a>
+                                <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><img class="img-responsive" alt="<%= trending.image.alt %>" src="/uploads/<%= trending.image.src %>"></a>
                                 <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><h3><%= trending.title %></h3></a>
                               </div>
                             </div>
@@ -80,7 +80,7 @@
          <div class="row blog-section-laptop">
          <div class="thumbnail">
                       <div class="img">
-                        <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img src="<%= more.image %>"></a>
+                        <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img alt="<%= more.image.alt %>" src="/uploads/<%= more.image.src %>"></a>
                       </div>
                  </div>
 
@@ -116,20 +116,20 @@
 
 
       <div class="col-md-4 col-sm-6 news-section">
-              
+
         <div class="thumbnail">
           <div class="img">
             <!-- <a href="#" class="sub-category">TV</a> -->
-          <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img src="<%= more.image %>"></a>
+          <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img alt="<%= more.image.alt %>" src="/uploads/<%= more.image.src %>"></a>
           <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><h2><%= more.title %></h2></a>
-          </div>  
+          </div>
         </div>
 
         <div class="caption">
           <!-- <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.title %>"><h3 style="color: #333333;"><%= more.title %></h3></a> -->
         </div>
 
-        <span><em>By <a class="author" href="/author/<%= more.author.username %>"><%= more.author.username %></a> on <%= more.date %></em></span><br><br>
+        <span><em>By <a class="author" href="/author/<%= more.author %>"><%= more.author %></a> on <%= more.date %></em></span><br><br>
 
 
 
@@ -149,4 +149,3 @@
 </div>
 
 <% include partials/footer %>
-

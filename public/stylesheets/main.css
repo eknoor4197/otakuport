@@ -739,6 +739,8 @@ span.author-date {
   left: 76px;
   /*margin-left: 28px;*/
   height: 80%;
+  height: 480px;
+  height: 490px;
   width: 998px;
   width: 1055px;
   width: 87%;
@@ -748,7 +750,7 @@ span.author-date {
 }
 
 .wrapper.img {
-  display: flex;
+  /*display: flex;*/
 }
 
 .wrapper:before {
@@ -798,7 +800,7 @@ span.author-date {
         bottom: 1%;
         /*bottom: 0px;*/
         width: 90%;
-        font-size: 40px;
+        font-size: 37px;
         line-height: 1.1;
         position: absolute;
         color: white;
@@ -1002,8 +1004,16 @@ div#navbar-particular-blog {
 
 #main-blog-content img, #main-news-content img, #main-review-content img, #main-revisited-content img {
         width : 800px;
-        height: 500px;
+        height: 480px;
         margin-bottom: 20px;
+}
+
+#main-blog-content blockquote, #main-news-content blockquote, #main-review-content blockquote {
+  border-left: 5px solid #F8483C;
+}
+
+#main-blog-content h2, #main-news-content h2, #main-review-content h2 {
+  font-weight: 900;
 }
 
 #main-blog-content p a, #main-news-content p a, #main-review-content p a {

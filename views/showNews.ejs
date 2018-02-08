@@ -4,7 +4,7 @@
 
 <div class="row">
 
-  <a href="/news" class="post-type-news">NEWS</a> 
+  <a href="/news" class="post-type-news">NEWS</a>
 
   <h1 id="main-news-title"><%= news.title %></h1>
 
@@ -16,7 +16,7 @@
 
         <span class="news-author"> By <a class="author" href="/author/<%= news.author.username %>"><%= news.author.username %></a> on <%= news.date %></span><br><br>
 
-        <div id="main-news-img"><img src="<%= news.image %>"></div>
+        <div id="main-news-img"><img alt="<%= news.image.alt %>" src="/uploads/<%= news.image.src %>"></div>
         <!-- <h2 class="news-imagesrc"><%= news.imageCredit %></h2> -->
         <!-- <hr class="style7" style="margin-left : 0px;margin-top : -5px;max-width: 90.3%;"> -->
 
@@ -57,7 +57,7 @@
                           <div class="individual-related">
                             <div class="thumbnail-related">
                               <div class="img">
-                                <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><img class="img-responsive" src="<%= trending.image %>"></a>
+                                <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><img class="img-responsive" alt="<%= trending.image.alt %>" src="/uploads/<%= trending.image.src %>"></a>
                                 <a href="/<%= trending.postType %>/<%= trending.referenceId %>/<%= trending.titleURL %>"><h3><%= trending.title %></h3></a>
                               </div>
                             </div>
@@ -86,7 +86,7 @@
          <div class="row blog-section-laptop">
          <div class="thumbnail">
                       <div class="img">
-                        <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img src="<%= more.image %>"></a>
+                        <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img alt="<%= more.image.alt %>" src="/uploads/<%= more.image.src %>"></a>
                       </div>
                  </div>
 
@@ -96,8 +96,8 @@
 
                     <div class="relative" style="font-size: 14px;margin-top: 10px;">
                         <span class="author-date"><!-- <a class="author" href="/author/<%= more.author %>"><%= more.author %></a> | --> <%= more.date %></span>
-                        	<!-- <p>One Punch Man Season 3starts in 2018, the production is in full gear. Watch out!</p> -->
-                        </div>    
+                                <!-- <p>One Punch Man Season 3starts in 2018, the production is in full gear. Watch out!</p> -->
+                        </div>
 
         </div>
 
@@ -119,13 +119,13 @@
 
 
       <div class="col-md-4 col-sm-6 news-section">
-              
+
         <div class="thumbnail">
           <div class="img">
             <!-- <a href="#" class="sub-category">TV</a> -->
-          <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img src="<%= more.image %>"></a>
+          <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><img alt="<%= more.image.alt %>" src="/uploads/<%= more.image.src %>"></a>
           <a href="/<%= more.postType %>/<%= more.referenceId %>/<%= more.titleURL %>"><h2><%= more.title %></h2></a>
-          </div>  
+          </div>
         </div>
 
         <div class="caption">
@@ -147,6 +147,3 @@
 
 
 <% include partials/footer %>
-
-
-

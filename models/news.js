@@ -1,24 +1,35 @@
 var mongoose = require("mongoose");
 var moment = require("moment");
+var generate = require("nanoid/generate");
+var alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 //SCHEMA SETUP
 var newsSchema = new mongoose.Schema({
-	title : String,
+   nanoId: {
+      type: String,
+      default : () => generate(alphabet,8)
+   },
+   title : String,
    intro : String,
-   image : String,
-   imageCredit : String,
+   image : {
+      src : String,
+      alt : String,
+      credit : String
+   },
    body : String,
    author : {
       id : {
          type : mongoose.Schema.Types.ObjectId,
          ref : "User"
       },
-      username : String
-   },   
+      username : String,
+      profilePic : String,
+      bio : String
+   },
    featured : String,
    tags: [String],
    date : String,
-   titleURL : String, 
+   titleURL : String,
    created : {type : Date, default : Date.now()},
    comments: [
       {
@@ -29,4 +40,6 @@ var newsSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model("news", newsSchema);
+
+
 

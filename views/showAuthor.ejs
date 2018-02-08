@@ -1,31 +1,9 @@
 <% include partials/header %>
 
-
-<!-- <div class="author-page">
-
-        <div class="row">
-
-            <div class="col-md-5">
-                  <div class="author-img">
-                        <img src="/images/<%= user.profilePic %>">
-              </div>
-            </div>
-
-                <div class="col-md-6 author-name">
-                  <h1><%= name %></h1>
-                   <div class="author-info">
-                     <p><%- user.bio %></p>
-                   </div>
-                </div>
-
-        </div>
-
-</div> -->
-
 <div class="author-info">
     <div class="row">
       <div class="shape">
-        <img src="/images/<%= user.profilePic %>">
+        <img src="/uploads/<%= user.profilePic %>">
       </div>
       <div class="author-details">
         <div class="author-name">
@@ -35,45 +13,40 @@
           <p><%- user.bio %></p>
         </div>
       </div>
-    </div>  
+    </div>
   </div>
 
 <div class="container blog-review-laptop">
 
-        <a href="/review" class="post-detail trending">ALL ARTICLES</a>
+   <a href="/review" class="post-detail trending">ALL ARTICLES</a>
 
-      <div class="row">
+       <div class="row">
 
         <% article.forEach(function(article,index) { %>
 
 
       <div class="col-md-4 col-sm-6 news-section">
-              
+
         <div class="thumbnail">
           <div class="img">
             <!-- <a href="#" class="sub-category">TV</a> -->
-          <a href="/<%= article.postType %>/<%= article.referenceId %>/<%= article.titleURL %>"><img src="<%= article.image %>"></a>
+          <a href="/<%= article.postType %>/<%= article.referenceId %>/<%= article.titleURL %>"><img alt="<%= article.image.alt %>" src="/uploads/<%= article.image.src %>"></a>
           <a href="/<%= article.postType %>/<%= article.referenceId %>/<%= article.titleURL %>"><h2><%= article.title %></h2></a>
-          </div>  
+          </div>
         </div>
 
-        <div class="caption">
-          <!-- <a href="/<%= article.postType %>/<%= article.referenceId %>/<%= article.title %>"><h3 style="color: #333333;"><%= article.title %></h3></a> -->
-        </div>
-
-        <span><em>By <a class="author" href="/author/<%= article.author %>"><%= article.author %></a> on <%= article.date %></em></span><br><br>
-
-
-
+        <span><em>By <a class="author" href="/author/<%= article.author %>"><%= article.author.username %></a> on <%= article.date %></em></span><br><br>
       </div>
 
       <% }) %>
 
-      </div></div>
+      </div>
+
+  </div>
 
 
  <!-- <div class="container news-section-laptop-container blog-review-mobile">
- 
+
         <% article.forEach(function(article,index) { %>
 
                 <div class="row news-section-laptop">
@@ -89,7 +62,7 @@
                          </div>
 
                          <div class="relative" >
-                                <span><a class="author" href="/author/<%= article.author %>"><%= article.author %></a> | <%= article.date %></span>             
+                                <span><a class="author" href="/author/<%= article.author %>"><%= article.author %></a> | <%= article.date %></span>
                           </div>
 
         </div>
@@ -110,7 +83,7 @@
          <div class="row blog-section-laptop">
          <div class="thumbnail">
                       <div class="img">
-                        <a href="/<%= article.postType %>/<%= article.referenceId %>/<%= article.titleURL %>"><img src="<%= article.image %>"></a>
+                        <a href="/<%= article.postType %>/<%= article.referenceId %>/<%= article.titleURL %>"><img alt="<%= article.image.alt %>" src="<%= article.image.src %>"></a>
                       </div>
                  </div>
 
@@ -120,7 +93,7 @@
 
                     <div class="relative" style="font-size: 14px;margin-top: 10px;">
                         <span class="author-date"> <!-- <a class="author" href="/author/<%= article.author %>"><%= article.author %></a> | --> <%= article.date %></span>
-                            <!-- <p>One Punch Man Season 3starts in 2018, the production is in full gear. Watch out!</p> -->
+                            <!-- <p>One Punch Man Season 3 starts in 2018, the production is in full gear. Watch out!</p> -->
                         </div>
 
         </div>
