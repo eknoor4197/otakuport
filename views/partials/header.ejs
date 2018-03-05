@@ -14,15 +14,13 @@
 
     <title><%= title %></title>
 
-    <meta name="description" content="<%= meta_desc %>" >
+    <meta name="description" content="<%= (typeof meta_desc != "undefined" ? meta_desc : "") %>" >
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Poppins:400,700,900|Rajdhani:400,700|Roboto:400,700,900" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css"> -->
 
     <!-- Compiled and minified CSS -->
 
@@ -31,22 +29,6 @@
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-
-    <link rel="stylesheet" media="(max-width: 768px)" type="text/css" href="/stylesheets/768px.css">
-
-    <link rel="stylesheet" media="(max-width: 640px)" type="text/css" href="/stylesheets/640px.css">
-
-    <link rel="stylesheet" media="(max-width: 1100px)" type="text/css" href="/stylesheets/1100px.css">
-
-    <link rel="stylesheet" media="(max-width: 992px)" type="text/css" href="/stylesheets/990px.css">
-
-    <link rel="stylesheet" media="(max-width: 480px)" type="text/css" href="/stylesheets/480px.css">
-
-    <link rel="stylesheet" media="(max-width: 870px)" type="text/css" href="/stylesheets/870px.css">
-
-    <link rel="stylesheet" media="(max-width: 360px)" type="text/css" href="/stylesheets/360px.css">
-
-    <link rel="stylesheet" media="(max-width: 1200px)" type="text/css" href="/stylesheets/1250px.css">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113143898-1"></script>
@@ -57,24 +39,6 @@
 
       gtag('config', 'UA-113143898-1');
     </script>
-
-
-      <!-- <script>window.twttr = (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0],
-    t = window.twttr || {};
-  if (d.getElementById(id)) return t;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "https://platform.twitter.com/widgets.js";
-  fjs.parentNode.insertBefore(js, fjs);
-
-  t._e = [];
-  t.ready = function(f) {
-    t._e.push(f);
-  };
-
-  return t;
-}(document, "script", "twitter-wjs"));</script> -->
 
   </head>
 
@@ -89,55 +53,33 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-  <!-- <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=1844681152465909";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script> -->
+<header class="header-container">
 
-   <nav class="navbar navbar-fixed-top navbar-default">
-   <div class="container">
-     <div class="navbar-header">
-       <button type="button" class="navbar-toggle minus collapsed" data-toggle="collapse" data-target="#navbar-collapse-minus" aria-expanded="false">
-         <span class="sr-only">Toggle Navigation</span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-       </button>
-       <a href="/" class="navbar-brand" style="letter-spacing:4px;">OtakuPort</a>
-       </div>
-
-           <div class="collapse navbar-collapse" id="navbar-collapse-minus">
-             <ul class="nav navbar-nav navbar-left">
-               <li><a href="/">HOME</a></li>
-               <li><a href="/news">NEWS</a></li>
-               <li><a href="/blog">BLOG</a></li>
-               <li><a href="/review">REVIEWS</a></li>
-               <!-- <li><a href="/revisited">REVISITED</a></li> -->
-             </ul>
-
-             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/about">ABOUT</a></li>
-              <li><a href="/contact">CONTACT</a></li>
-             </ul>
-       </div>
+    <div class="logo">
+       <a href="/">OtakuPort</a>
     </div>
-</nav>
+
+    <nav>
+    <ul class="nav-left">
+         <li><a href="/">HOME</a></li>
+         <li><a href="/news" title=”Watches”>NEWS</a></li>
+         <li><a href="/blog">BLOG</a></li>
+         <li><a href="/review">REVIEWS</a></li>
+    </ul>
+
+    <ul class="nav-right">
+        <li><a href="/about">ABOUT</a></li>
+        <li><a href="/contact">CONTACT</a></li>
+    </ul>
+  </nav>
+
+</header>
 
 
+  <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> -->
 
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script> -->
-
-  <!-- Compiled and minified JavaScript -->
-
-  <!-- <script type="text/javascript" src="/lib/jquery-3.1.1.min.js"></script> -->
 
   <script type="text/javascript" src="/js/myScripts.js"></script>

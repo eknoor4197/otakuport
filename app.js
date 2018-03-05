@@ -17,6 +17,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 
+
 var marked = require('marked');
 
 var moment = require("moment");
@@ -73,7 +74,18 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/otakuport");
+mongoose.connect("mongodb://localhost/otakuport?connectTimeoutMS=300000");
+
+// const serverOptions = {
+//     poolsize:100,
+//     socketOptions:{
+//         socketTimeoutMS: 6000000
+//         }
+//     };
+//     var mongodbUri = 'mongodb://localhost:27017/otakuport?connectTimeoutMS=300000';
+//     mongoose.connect(mongodbUri, {
+//     server: serverOptions
+//     });
 
 // app.set('views', path.join(__dirname, 'views'));
 app.set("view engine","ejs");
@@ -86,9 +98,8 @@ app.use(expressSanitizer());
 app.use(function(req,res,next) {
 	fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 	res.locals.currentUser = req.user;
-	// console.log(req.user);
-	// console.log("=============");
-	// console.log(res.locals.currentUser);
+  res.locals.title = "OtakuPort - The Base of Anime Culture";
+  res.locals.meta_desc = "OtakuPort - The Base of Anime Culture";
 	res.locals.fullUrl = fullUrl;
 	next();
 })
@@ -96,13 +107,18 @@ app.use(function(req,res,next) {
 var storage = multer.diskStorage({
 	destination : "./public/uploads",
 	filename : function(req,file,cb) {
-		cb(null,file.fieldname + "-" + "-" + Date.now() + path.extname(file.originalname));
+		cb(null,file.fieldname + "-" + Date.now() + path.extname(file.originalname));
 	}
 })
 
 var upload = multer({
 	storage : storage
 }).single("OtakuPort");
+
+var Jimp = require("jimp");
+
+var sharp = require("sharp");
+
 
 //IMAGE UPLOAD API
 app.get("/api", function(req,res) {
@@ -119,7 +135,13 @@ app.post("/api", function (req,res) {
                         console.log(req.file);
                         var imgDate = Date.now();
                         var d = generate(alphabet,8);
-                        fs.rename("./public/uploads/" + req.file.filename, "./public/uploads/" + req.body.name + "-" +  d + path.extname(req.file.originalname), function(err) {
+                        var image_year = (new Date()).getFullYear();
+                        var image_month = (new Date()).getMonth() + 1;
+                        if(image_month < 10) {
+                          image_month = "0" + image_month;
+                        }
+                        var renamed_file = image_year + "-" + image_month + "-" + req.body.name + "-" +  d + path.extname(req.file.originalname);
+                        fs.rename("./public/uploads/" + req.file.filename, "./public/uploads/" + renamed_file, function(err) {
                                 if(err) {
                                         console.log(err);
                                 }
@@ -127,15 +149,64 @@ app.post("/api", function (req,res) {
                                         console.log("Renamed completely");
                                         console.log("File uploaded successfully!");
                                         console.log(req.file.filename);
-                                        console.log(req.body.name);
-                                        res.render("imageUpload", {title: "OtakuPort - The Base of Anime Culture", meta_desc : "OtakuPort - The Base of Anime Culture" , imageName : req.body.name + "-" +  d + path.extname(req.file.originalname)})
+                                        console.log(renamed_file);
+                                        res.render("imageUpload", {title: "OtakuPort - The Base of Anime Culture", meta_desc : "OtakuPort - The Base of Anime Culture" , imageName : renamed_file})
+
+                                        fs.readFile("./public/uploads/" + renamed_file, function(err,file) {
+
+                                          if( renamed_file.indexOf("article") == -1) {
+                                            sharp_resize(renamed_file,450,540);
+                                            sharp_resize(renamed_file,450,270);
+                                            sharp_resize(renamed_file,330,375);
+                                            sharp_resize(renamed_file,355,170);
+                                            sharp_resize(renamed_file,800,600);
+                                            // sharp_resize(renamed_file,1200,400);
+                                            sharp_resize(renamed_file,110,80);
+                                            sharp_resize(renamed_file,810,210);
+                                          }
+                                            
+                                        })    
+                                        
+                                        
                                 }
                         })
                     }
         })
 })
 
+// fs.readdir("./public/uploads", function(err,files) {
+//   files.forEach(function(file) {
+//     sharp("./public/uploads/" + file)
+//       .ignoreAspectRatio()
+//       .resize(800, 600)
+//       .toFile("./public/uploads/" + path.basename(file, path.extname(file)) + "-800x600.jpg", function(err) {
+//       });
+//   })
+// })
 
+// fs.readdir("./public/uploads", function(err,files) {
+//   files.forEach(function(file) {
+//     sharp_resize(file,450,540);
+//     sharp_resize(file,450,270);
+//     sharp_resize(file,330,375);
+//     sharp_resize(file,355,170);
+//     sharp_resize(file,800,600);
+//     sharp_resize(file,1200,400);
+//     sharp_resize(file,110,80);
+//     sharp_resize(file,800,200);
+//   })
+// })
+
+function sharp_resize(file_name,width,height) {
+  sharp("./public/uploads/" + file_name)
+      .ignoreAspectRatio()
+      .resize(width, height)
+      .toFile("./public/uploads/" + path.basename(file_name, path.extname(file_name)) + "-sharp-" + width + "x" + height + path.extname(file_name), function(err) {
+        if(err) {
+          throw err;
+        }
+      });
+}
 
 //LANDING PAGE
 app.get('/', function (req, res,next) {
@@ -146,9 +217,8 @@ app.get('/', function (req, res,next) {
 		} else {
 			res.locals.latest = allArticle
 			res.locals.title = "OtakuPort | The Base of Anime Culture";
-            res.locals.meta_desc = "OtakuPort is your one stop for anime culture. We strive to provide you the hottest and the latest in the anime world. We cover anime news, opinions, reviews and revisit your favourite anime series. Our audience ranges from 15 - 49 and are hardcore anime fans. Our team of influential and expert writers provide in-depth reviews/opinions about your favourite anime.";
-
-            next();
+      res.locals.meta_desc = "OtakuPort is your one stop for anime culture. We strive to provide you the hottest and the latest in the anime world. We cover anime news, opinions, reviews and revisit your favourite anime series.";
+      next();
 		}
 	})
 }, function(req,res,next) {
@@ -193,35 +263,25 @@ app.get('/', function (req, res,next) {
 				}	
 	})
 },function (req, res,next) {
-  News.find({featured : "no"}).sort([['_id', -1]]).limit(4).exec(function(err,allNews) {
+  News.find({featured: "no"}).sort([['_id', -1]]).limit(4).exec(function(err,news) {
 				if(err) {
 					console.log(err);
 					next();
 				} else {
-					res.locals.news = allNews;
+					res.locals.news = news;
 					next();
 				}	
 	})
 },function (req, res,next) {
-  News.find({featured : "yes"}).sort([['_id', -1]]).limit(2).exec(function(err,featuredNews) {
-				if(err) {
-					console.log(err);
-					next();
-				} else {
-					res.locals.featuredNews = featuredNews;
-					next();
-				}	
-	})
-},function (req, res,next) {
-  News.find({featured : "no"}).sort([['_id', -1]]).limit(6).exec(function(err,allNews) {
-				if(err) {
-					console.log(err);
-					next();
-				} else {
-					res.locals.allNews = allNews;
-					next();
-				}	
-	})
+  News.find({featured: "yes"}).sort([['_id', -1]]).limit(2).exec(function(err,featuredNews) {
+        if(err) {
+          console.log(err);
+          next();
+        } else {
+          res.locals.featuredNews = featuredNews;
+          next();
+        } 
+  })
 },function (req, res) {
   Revisited.find({}).sort([['_id', -1]]).limit(6).exec(function(err,allRevisited) {
 				if(err) {
@@ -271,13 +331,13 @@ app.post("/blog", isLoggedIn, function(req,res) {
 
         req.body.blog.tags = req.body.blog.tags.split(",");
 
-         var newlyCreated = req.body.blog;
+        var newlyCreated = req.body.blog;
         // newlyCreated.author = req.user;
         newlyCreated.author = {
                 id : req.user._id,
-        username : req.user.username,
-        profilePic : req.user.profilePic,
-        bio : req.user.bio
+                username : req.user.username,
+                profilePic : req.user.profilePic,
+                bio : req.user.bio
         }
         // var articleAuthor = newlyCreated.author.username;
 
@@ -310,6 +370,13 @@ app.post("/blog", isLoggedIn, function(req,res) {
                         date : newBlog.date,
                         created : newBlog.created
                 });
+
+                if(newBlog.featured == "yes") {
+                  fs.readFile("./public/uploads/" + newBlog.image.src, function(err,file) {
+                            sharp_resize(newBlog.image.src,1200,400);
+                  })
+                }  
+                 
                 res.redirect("/blog"); //success response
 
                 }
@@ -319,39 +386,43 @@ app.post("/blog", isLoggedIn, function(req,res) {
 
 
 // PARTICULAR BLOG
-app.get("/blog/:id/:titleURL", function(req,res,next) {
-	Blog.findById(req.params.id,function(err,foundBlog) {
+app.get("/blog/:nanoId/:titleURL", function(req,res,next) {
+	Blog.findOne({nanoId : req.params.nanoId},function(err,foundBlog) {
 		if(err) {
 			// next();
 			res.redirect("/blog");
 			next();
 		} else {
 			// next();
-		  res.locals.blog = foundBlog;
-          res.locals.title = foundBlog.title + " | OtakuPort";
-          res.locals.meta_desc = foundBlog.body.split('. ',10);
-		  res.locals.blog.body = marked( foundBlog.body );
-		  next();
+      if(!foundBlog) {
+        res.redirect("/blog");
+      } else {
+        res.locals.blog = foundBlog;
+        res.locals.title = foundBlog.title + " | OtakuPort";
+        res.locals.meta_desc = foundBlog.body.split('. ',10);
+        res.locals.blog.body = marked( foundBlog.body );
+        next();
+      }
 		}
 	})
 
 },function(req,res,next) {
-    Article.find({postType : "news"}).sort([['_id', -1]]).limit(5).exec(function(err,allArticle) { //finds the latest blog posts (upto 3)
+    News.find({}).sort([['_id', -1]]).limit(5).exec(function(err,allNews) { //finds the latest blog posts (upto 3)
 		if(err) {
 			next();
 			console.log(err);
 		} else {
 			next();
-			res.locals.trending = allArticle;
+			res.locals.trending = allNews;
 		}
 	})
 
  },function(req,res) {
-    Article.find({postType:"review"}).sort([['_id', -1]]).limit(6).exec(function(err,allArticle) { //finds the latest blog posts (upto 3)
+    Review.find({}).sort([['_id', -1]]).limit(6).exec(function(err,allReviews) { //finds the latest blog posts (upto 3)
 		if(err) {
 			console.log(err);
 		} else {
-			res.locals.more = allArticle;
+			res.locals.more = allReviews;
 			res.render("showBlog", res.locals);
 		}
 	})
@@ -359,10 +430,10 @@ app.get("/blog/:id/:titleURL", function(req,res,next) {
 )
 
 //EDIT BLOG - FORM
-app.get("/blog/:id/:titleURL/edit", function(req,res) {
+app.get("/blog/:nanoId/:titleURL/edit", function(req,res) {
 	  if(req.isAuthenticated()) {
 
-	  	Blog.findById(req.params.id, function(err, foundBlog) {
+	  	Blog.findOne({nanoId : req.params.nanoId}, function(err, foundBlog) {
 		if(err) {
 			res.redirect("/blog");
 		} else {
@@ -383,58 +454,66 @@ app.get("/blog/:id/:titleURL/edit", function(req,res) {
 })
 
 //UPDATE BLOG
-app.put("/blog/:id/:titleURL", function(req,res) {
-        // req.body.blog.body = req.sanitize(req.body.blog.body);
-        // var id = req.params.id;
-        Blog.findByIdAndUpdate(req.params.id, req.body.blog,{new: true}, function(err,updatedBlog) {
+app.put("/blog/:nanoId/:titleURL", function(req,res) {
+        Blog.findOneAndUpdate({nanoId : req.params.nanoId}, req.body.blog,{new: true}, function(err,updatedBlog) {
+
                 if(err) {
                         res.redirect("/blog");
                 } else {
-                        Article.findOne({referenceId : req.params.id}, function(err,updatedArticle) {
+                        Article.findOne({nanoId : req.params.nanoId}, function(err,updatedArticle) {
                                 if(!err) {
                                   // console.log(updatedBlog);
                                   	updatedArticle.referenceId = updatedBlog._id;
                                   	updatedArticle.nanoId = updatedBlog.nanoId;
-                          			updatedArticle.postType = "blog";
-                          			updatedArticle.image = updatedBlog.image;
-                          			updatedArticle.title = updatedBlog.title;
-                          			updatedArticle.body = updatedBlog.body;
-                          			updatedArticle.intro = updatedBlog.intro;
-                          			updatedArticle.tags = updatedBlog.tags;
+                              			updatedArticle.postType = "blog";
+                              			updatedArticle.image = updatedBlog.image;
+                              			updatedArticle.title = updatedBlog.title;
+                              			updatedArticle.body = updatedBlog.body;
+                              			updatedArticle.intro = updatedBlog.intro;
+                              			updatedArticle.tags = updatedBlog.tags;
                                   	updatedArticle.author = updatedBlog.author.username;
                                   	updatedArticle.date = updatedBlog.date;
-                      				updatedArticle.created = updatedBlog.created;
-                      				updatedArticle.featured = updatedBlog.featured;
-                      				updatedArticle.titleURL = updatedBlog.titleURL;
-                      				updatedArticle.save();
+                            				updatedArticle.created = updatedBlog.created;
+                            				updatedArticle.featured = updatedBlog.featured;
+                            				updatedArticle.titleURL = updatedBlog.titleURL;
+                            				updatedArticle.save();
                                 }
                         })
 
-                        Image.findOne({referenceId : req.params.id}, function(err,updatedImage) {
+                        Image.findOne({nanoId : req.params.nanoId}, function(err,updatedImage) {
                                 if(!err) {
                                   	updatedImage.referenceId = updatedBlog._id;
                                   	updatedImage.nanoId = updatedBlog.nanoId;
-                          			updatedImage.image = updatedBlog.image;
-                          			updatedImage.title = updatedBlog.title;
-                          			updatedImage.tags = updatedBlog.tags;
+                              			updatedImage.image = updatedBlog.image;
+                              			updatedImage.title = updatedBlog.title;
+                              			updatedImage.tags = updatedBlog.tags;
                                   	updatedImage.date = updatedBlog.date;
-                      				updatedImage.created = updatedBlog.created;
-                      				updatedImage.save();
+                            				updatedImage.created = updatedBlog.created;
+                            				updatedImage.save();
                                 }
                         })
-                        res.redirect("/blog/" + req.params.id + "/" + req.params.titleURL);
+
+                        if(updatedBlog.featured == "yes") {
+                          fs.stat("./public/uploads/" + path.basename(updatedBlog.image.src, path.extname(updatedBlog.image.src)) + "-sharp-1200x400" + path.extname(updatedBlog.image.src), function(err, stats) {
+                              if (stats == undefined) {
+                                sharp_resize(updatedBlog.image.src,1200,400); 
+                              }
+                          })
+                        }
+                              
+                        res.redirect("/blog/" + req.params.nanoId + "/" + req.params.titleURL);
                 }
         })
 })
 
 
 //DELETE BLOG
-app.delete("/blog/:id/:titleURL", function(req,res) {
-	Blog.findByIdAndRemove(req.params.id,function(err) {
+app.delete("/blog/:nanoId/:titleURL", function(req,res) {
+	Blog.findOneAndRemove({nanoId : req.params.nanoId},function(err) {
 		if(err) {
 			res.redirect("/blog");
 		} else {
-			Article.findOneAndRemove({referenceId : req.params.id}, function(err) {
+			Article.findOneAndRemove({nanoId : req.params.nanoId}, function(err) {
 				if(!err) {
 					res.redirect("/blog");
 				}
@@ -498,6 +577,7 @@ app.post("/review", isLoggedIn, function(req,res) {
                         author : newReview.author.username,
                         created : newReview.created
                 });
+
                 Image.create({
                         referenceId : newReview._id,
                         nanoId : newReview.nanoId,
@@ -507,6 +587,12 @@ app.post("/review", isLoggedIn, function(req,res) {
                         date : newReview.date,
                         created : newReview.created
                 });
+
+                if(newReview.featured == "yes") {
+                  fs.readFile("./public/uploads/" + newReview.image.src, function(err,file) {
+                            sharp_resize(newReview.image.src,1200,400);
+                  })
+                }
                         res.redirect("/review");
                         // console.log(newReview.author);
                 }
@@ -515,38 +601,42 @@ app.post("/review", isLoggedIn, function(req,res) {
 
 
 //PARTICULAR REVIEW
-app.get("/review/:id/:titleURL", function(req,res,next) {
-	Review.findById(req.params.id).populate("comments").exec(function(err,foundReview) {
+app.get("/review/:nanoId/:titleURL", function(req,res,next) {
+	Review.findOne({nanoId : req.params.nanoId},function(err,foundReview) {
 		if(err) {
 			// next();
 			res.redirect("/review");
 			next();
 		} else {
 			// next();
-		  res.locals.review = foundReview;
-          res.locals.title = foundReview.title + " | OtakuPort";
-          res.locals.meta_desc = foundReview.body.split('. ',10);
-		  res.locals.review.body = marked( foundReview.body );
-		  next();
+		  if(!foundReview) {
+        res.redirect("/review");
+      } else {
+        res.locals.review = foundReview;
+        res.locals.title = foundReview.title + " | OtakuPort";
+        res.locals.meta_desc = foundReview.body.split('. ',10);
+        res.locals.review.body = marked( foundReview.body );
+        next();
+      }
 		}
 	})
 
 },function(req,res,next) {
-    Article.find({postType:"news"}).sort([['_id', -1]]).limit(5).exec(function(err,allArticle) { //finds the latest blog posts (upto 3)
+    News.find({}).sort([['_id', -1]]).limit(5).exec(function(err,allNews) { //finds the latest blog posts (upto 3)
 		if(err) {
 			console.log(err);
 			next();
 		} else {
-			res.locals.trending = allArticle;
+			res.locals.trending = allNews;
 			next();
 		}
 	})
 },function(req,res) {
-    Article.find({postType:"blog"}).sort([['_id', -1]]).limit(6).exec(function(err,allArticle) { //finds the latest blog posts (upto 3)
+    Blog.find({}).sort([['_id', -1]]).limit(6).exec(function(err,allBlogs) { //finds the latest blog posts (upto 3)
 		if(err) {
 			console.log(err);
 		} else {
-			res.locals.more = allArticle;
+			res.locals.more = allBlogs;
 			res.render("showReview", res.locals);
 		}
 	})
@@ -554,16 +644,14 @@ app.get("/review/:id/:titleURL", function(req,res,next) {
 )
 
 //EDIT REVIEW
-app.get("/review/:id/:titleURL/edit", function(req,res) {
+app.get("/review/:nanoId/:titleURL/edit", function(req,res) {
 
 	if(req.isAuthenticated()) {
 
-	  	Review.findById(req.params.id, function(err, foundReview) {
+	  	Review.findOne({nanoId : req.params.nanoId}, function(err, foundReview) {
 		if(err) {
 			res.redirect("/review");
 		} else {
-			// console.log(foundReview.author);
-			// console.log(req.user.username);
 			if( (req.user.username == "Eknoorpreet Singh") || (foundReview.author.username == req.user.username) ) {
 				res.render("editReview", {review : foundReview, title: "Edit Review", meta_desc : "Edit Review"});
 			} else {
@@ -578,55 +666,64 @@ app.get("/review/:id/:titleURL/edit", function(req,res) {
 })	  
 
 //UPDATE REVIEW
-app.put("/review/:id/:titleURL", function(req,res) {
+app.put("/review/:nanoId/:titleURL", function(req,res) {
         // req.body.review.body = req.sanitize(req.body.review.body);
-        Review.findByIdAndUpdate(req.params.id, req.body.review,{new: true}, function(err,updatedReview) {
+        Review.findOneAndUpdate({nanoId : req.params.nanoId}, req.body.review,{new: true}, function(err,updatedReview) {
                 if(err) {
                         res.redirect("/review");
                 } else {
-                        Article.findOne({referenceId : req.params.id}, function(err,updatedArticle) {
+                        Article.findOne({nanoId : req.params.nanoId}, function(err,updatedArticle) {
                                 if(!err) {
                                 	updatedArticle.referenceId = updatedReview._id;
                                 	updatedArticle.nanoId = updatedReview.nanoId;
-                        			updatedArticle.postType = "review";
-                        			updatedArticle.image = updatedReview.image;
-                        			updatedArticle.title = updatedReview.title;
-                        			updatedArticle.body = updatedReview.body;
-                        			updatedArticle.intro = updatedReview.intro;
-                        			updatedArticle.tags = updatedReview.tags;
+                            			updatedArticle.postType = "review";
+                            			updatedArticle.image = updatedReview.image;
+                            			updatedArticle.title = updatedReview.title;
+                            			updatedArticle.body = updatedReview.body;
+                            			updatedArticle.intro = updatedReview.intro;
+                            			updatedArticle.tags = updatedReview.tags;
                                 	updatedArticle.author = updatedReview.author;
                                 	updatedArticle.date = updatedReview.date;
-                        			updatedArticle.rating = updatedReview.rating;
-                    				updatedArticle.created = updatedReview.created;
-                    				updatedArticle.featured = updatedReview.featured;
-                    				updatedArticle.save();
+                              		updatedArticle.rating = updatedReview.rating;
+                          				updatedArticle.created = updatedReview.created;
+                          				updatedArticle.featured = updatedReview.featured;
+                          				updatedArticle.save();
                                 }
                         })
-                        Image.findOne({referenceId : req.params.id}, function(err,updatedImage) {
+                        Image.findOne({nanoId : req.params.nanoId}, function(err,updatedImage) {
                                 if(!err) {
                                   	updatedImage.referenceId = updatedReview._id;
                                   	updatedImage.nanoId = updatedReview.nanoId;
-			                        updatedImage.image = updatedReview.image;
-			                        updatedImage.title = updatedReview.title;
-			                        updatedImage.tags = updatedReview.tags;
+      			                        updatedImage.image = updatedReview.image;
+      			                        updatedImage.title = updatedReview.title;
+      			                        updatedImage.tags = updatedReview.tags;
                                     updatedImage.date = updatedReview.date;
-                      				updatedImage.created = updatedReview.created;
-                      				updatedImage.save();
+                            				updatedImage.created = updatedReview.created;
+                            				updatedImage.save();
                                 }
                         })
-                        res.redirect("/review/" + req.params.id + "/" + req.params.titleURL);
+
+                        if(updatedReview.featured == "yes") {
+                          fs.stat("./public/uploads/" + path.basename(updatedReview.image.src, path.extname(updatedReview.image.src)) + "-sharp-1200x400" + path.extname(updatedReview.image.src), function(err, stats) {
+                              if (stats == undefined) {
+                                sharp_resize(updatedReview.image.src,1200,400); 
+                              }
+                          })
+                        }
+
+                        res.redirect("/review/" + req.params.nanoId + "/" + req.params.titleURL);
                 }
         })
 })
 
 
 //DELETE REVIEW
-app.delete("/review/:id/:titleURL", function(req,res) {
-	Review.findByIdAndRemove(req.params.id,function(err) {
+app.delete("/review/:nanoId/:titleURL", function(req,res) {
+	Review.findOneAndRemove({nanoId : req.params.nanoId},function(err) {
 		if(err) {
 			res.redirect("/review");
 		} else {
-			Article.findOneAndRemove({referenceId : req.params.id}, function(err) {
+			Article.findOneAndRemove({nanoId : req.params.nanoId}, function(err) {
 				if(!err) {
 					res.redirect("/review");
 				}
@@ -664,9 +761,9 @@ app.post("/news",isLoggedIn, function(req,res) {
         // newlyCreated.author = req.user;
         newlyCreated.author = {
                 id : req.user._id,
-		        username : req.user.username,
-		        profilePic : req.user.profilePic,
-		        bio : req.user.bio
+    		        username : req.user.username,
+    		        profilePic : req.user.profilePic,
+    		        bio : req.user.bio
         }
         // var articleAuthor = newlyCreated.author.username;
 
@@ -698,6 +795,13 @@ app.post("/news",isLoggedIn, function(req,res) {
                         date : newNews.date,
                         created : newNews.created
                 });
+
+                if(newNews.featured == "yes") {
+                  fs.readFile("./public/uploads/" + newNews.image.src, function(err,file) {
+                            sharp_resize(newNews.image.src,1200,400);
+                  })
+                }
+
                 res.redirect("/news"); //success response
                 }
         })
@@ -705,21 +809,25 @@ app.post("/news",isLoggedIn, function(req,res) {
 
 
 //PARTICULAR NEWS PAGE
-app.get("/news/:id/:titleURL", function(req,res,next) {
-	News.findById(req.params.id).populate("comments").exec(function(err,foundNews) {
+app.get("/news/:nanoId/:titleURL", function(req,res,next) {
+	News.findOne({nanoId : req.params.nanoId},function(err,foundNews) {
 		if(err) {
 			next();
 			res.redirect("/news");
 		} else {
-			next();
-			res.locals.news = foundNews;
-			res.locals.title = foundNews.title + " | OtakuPort";
-			res.locals.meta_desc = foundNews.body.split('. ',10);
-			res.locals.news.body = marked( foundNews.body );
+			if(!foundNews) {
+        res.redirect("/news");
+      } else {
+        res.locals.news = foundNews;
+        res.locals.title = foundNews.title + " | OtakuPort";
+        res.locals.meta_desc = foundNews.body.split('. ',10);
+        res.locals.news.body = marked( foundNews.body );
+        next();
+      }
 		}
 	})
 },function(req,res,next) {
-    Article.find({postType: "news"}).sort([['_id', -1]]).limit(5).exec(function(err,allArticle) { //finds the latest blog posts (upto 3) postType:"news"
+    News.find({}).sort([['_id', -1]]).limit(5).exec(function(err,allArticle) { //finds the latest blog posts (upto 3) postType:"news"
 		if(err) {
 			console.log(err);
 			next();
@@ -730,11 +838,11 @@ app.get("/news/:id/:titleURL", function(req,res,next) {
 		}
 	})
  },function(req,res) {
-    Article.find({postType:"review"}).sort([['_id', -1]]).limit(6).exec(function(err,allArticle) { //finds the latest blog posts (upto 3)
+    Blog.find({}).sort([['_id', -1]]).limit(6).exec(function(err,allBlogs) { //finds the latest blog posts (upto 3)
 		if(err) {
 			console.log(err);
 		} else {
-			res.locals.more = allArticle;
+			res.locals.more = allBlogs;
 			res.render("showNews", res.locals);
 		}
 	})
@@ -742,11 +850,11 @@ app.get("/news/:id/:titleURL", function(req,res,next) {
 )
 
 //EDIT NEWS - FORM
-app.get("/news/:id/:titleURL/edit", function(req,res) {
+app.get("/news/:nanoId/:titleURL/edit", function(req,res) {
 
         if(req.isAuthenticated()) {
 
-                News.findById(req.params.id, function(err, foundNews) {
+                News.findOne({nanoId : req.params.nanoId}, function(err, foundNews) {
                 if(err) {
                         res.redirect("/news");
                 } else {
@@ -766,57 +874,65 @@ app.get("/news/:id/:titleURL/edit", function(req,res) {
 })
 
 //UPDATE NEWS
-app.put("/news/:id/:titleURL", function(req,res) {
+app.put("/news/:nanoId/:titleURL", function(req,res) {
         // req.body.news.body = req.sanitize(req.body.news.body);
-        var id = req.params.id;
-        News.findByIdAndUpdate(req.params.id, req.body.news,{new: true}, function(err,updatedNews) {
+        News.findOneAndUpdate({nanoId : req.params.nanoId}, req.body.news,{new: true}, function(err,updatedNews) {
                 if(err) {
                         res.redirect("/news");
                 } else {
-                        Article.findOne({referenceId : req.params.id}, function(err,updatedArticle) {
+                        Article.findOne({nanoId : req.params.nanoId}, function(err,updatedArticle) {
                                 if(!err) {
                                 // console.log(updatedNews);
 	                                updatedArticle.referenceId = updatedNews._id;
 	                                updatedArticle.nanoId = updatedNews.nanoId;
-			                        updatedArticle.postType = "news";
-			                        updatedArticle.image = updatedNews.image;
-			                        updatedArticle.title = updatedNews.title;
-			                        updatedArticle.body = updatedNews.body;
-			                        updatedArticle.intro = updatedNews.intro;
-			                        updatedArticle.tags = updatedNews.tags;
+      			                      updatedArticle.postType = "news";
+      			                      updatedArticle.image = updatedNews.image;
+      			                      updatedArticle.title = updatedNews.title;
+      			                      updatedArticle.body = updatedNews.body;
+      			                      updatedArticle.intro = updatedNews.intro;
+      			                      updatedArticle.tags = updatedNews.tags;
 	                                updatedArticle.author = updatedNews.author;
 	                                updatedArticle.date = updatedNews.date;
-				                    updatedArticle.created = updatedNews.created;
-				                    updatedArticle.featured = updatedNews.featured;
-				                    updatedArticle.titleURL = updatedNews.titleURL;
-				                    updatedArticle.save();
+      				                    updatedArticle.created = updatedNews.created;
+      				                    updatedArticle.featured = updatedNews.featured;
+      				                    updatedArticle.titleURL = updatedNews.titleURL;
+      				                    updatedArticle.save();
                                 }
                         })
-                        Image.findOne({referenceId : req.params.id}, function(err,updatedImage) {
+                        Image.findOne({nanoId : req.params.nanoId}, function(err,updatedImage) {
                                 if(!err) {
 	                                updatedImage.referenceId = updatedNews._id;
 	                                updatedImage.nanoId = updatedNews.nanoId;
-			                        updatedImage.image = updatedNews.image;
-			                        updatedImage.title = updatedNews.title;
-			                        updatedImage.tags = updatedNews.tags;
+    			                        updatedImage.image = updatedNews.image;
+    			                        updatedImage.title = updatedNews.title;
+    			                        updatedImage.tags = updatedNews.tags;
 	                                updatedImage.date = updatedNews.date;
-				                    updatedImage.created = updatedNews.created;
-				                    updatedImage.save();
+      				                    updatedImage.created = updatedNews.created;
+      				                    updatedImage.save();
                                 }
                         })
-                        res.redirect("/news/" + req.params.id + "/" + req.params.titleURL);
+
+                        if(updatedNews.featured == "yes") {
+                          fs.stat("./public/uploads/" + path.basename(updatedNews.image.src, path.extname(updatedNews.image.src)) + "-sharp-1200x400" + path.extname(updatedNews.image.src), function(err, stats) {
+                              if (stats == undefined) {
+                                sharp_resize(updatedNews.image.src,1200,400); 
+                              }
+                          })
+                        }
+
+                        res.redirect("/news/" + req.params.nanoId + "/" + req.params.titleURL);
                 }
         })
 })
 
 
 //DELETE NEWS
-app.delete("/news/:id/:titleURL", function(req,res) {
-	News.findByIdAndRemove(req.params.id,function(err) {
+app.delete("/news/:nanoId/:titleURL", function(req,res) {
+	News.findOneAndRemove({nanoId : req.params.nanoId},function(err) {
 		if(err) {
 			res.redirect("/news");
 		} else {
-			Article.findOneAndRemove({referenceId : req.params.id}, function(err) {
+			Article.findOneAndRemove({nanoId : req.params.nanoId}, function(err) {
 				if(!err) {
 					res.redirect("/news");
 				}
@@ -885,8 +1001,8 @@ app.post("/revisited",isLoggedIn, function(req,res) {
 })
 
 // PARTICULAR REVISITED PAGE
-app.get("/revisited/:id/:titleURL", function(req,res,next) {
-	Revisited.findById(req.params.id).populate("comments").exec(function(err,foundRevisited) {
+app.get("/revisited/:nanoId/:titleURL", function(req,res,next) {
+	Revisited.findOne({nanoId : req.params.nanoId},function(err,foundRevisited) {
 		if(err) {
 			// next();
 			res.redirect("/revisited");
@@ -912,14 +1028,12 @@ app.get("/revisited/:id/:titleURL", function(req,res,next) {
 )
 
 //EDIT REVISITED - FORM
-app.get("/revisited/:id/:titleURL/edit", function(req,res) {
+app.get("/revisited/:nanoId/:titleURL/edit", function(req,res) {
 	  if(req.isAuthenticated()) {
-	  	Revisited.findById(req.params.id, function(err, foundRevisited) {
+	  	Revisited.findOne({nanoId : req.params.nanoId}, function(err, foundRevisited) {
 		if(err) {
 			res.redirect("/revisited");
 		} else {
-			// console.log(foundRevisited.author);
-			// console.log(req.user.username);
 			if( (req.user.username == "Eknoorpreet Singh") || (foundRevisited.author == req.user.username) ) {
 				res.render("editRevisited", {revisited : foundRevisited , title : "Edit Revisited" });
 			} else {
@@ -934,41 +1048,39 @@ app.get("/revisited/:id/:titleURL/edit", function(req,res) {
 })
 
 //UPDATE REVISITED
-app.put("/revisited/:id/:titleURL", function(req,res) {
-	// req.body.revisited.body = req.sanitize(req.body.blog.body);
-	// var id = req.params.id;
-	Revisited.findByIdAndUpdate(req.params.id, req.body.revisited,{new: true}, function(err,updatedRevisited) {
+app.put("/revisited/:nanoId/:titleURL", function(req,res) {
+	Revisited.findOneAndUpdate({nanoId : req.params.nanoId}, req.body.revisited,{new: true}, function(err,updatedRevisited) {
 		if(err) {
 			res.redirect("/revisited");
 		} else {
-			Article.findOne({referenceId : req.params.id}, function(err,updatedArticle) {
+			Article.findOneAndUpdate({nanoId : req.params.nanoId}, function(err,updatedArticle) {
 				if(!err) {
-				  updatedArticle.referenceId = updatedRevisited._id;
+    				  updatedArticle.referenceId = updatedRevisited._id;
 	        	  updatedArticle.postType = "blog";
 	        	  updatedArticle.image = updatedRevisited.image;
 	        	  updatedArticle.title = updatedRevisited.title;
 	        	  updatedArticle.body = updatedRevisited.body;
 	        	  updatedArticle.intro = updatedRevisited.intro;
-				  updatedArticle.author = updatedRevisited.author;
-				  updatedArticle.date = updatedRevisited.date;
-	              updatedArticle.created = updatedRevisited.created;
-	              updatedArticle.featured = updatedRevisited.featured;
-	              updatedArticle.titleURL = updatedRevisited.titleURL;
-	              updatedArticle.save(); 
+    				  updatedArticle.author = updatedRevisited.author;
+    				  updatedArticle.date = updatedRevisited.date;
+	            updatedArticle.created = updatedRevisited.created;
+	            updatedArticle.featured = updatedRevisited.featured;
+	            updatedArticle.titleURL = updatedRevisited.titleURL;
+	            updatedArticle.save(); 
 				} 
 			})
-			res.redirect("/revisited/" + req.params.id + "/" + req.params.titleURL);
+			res.redirect("/revisited/" + req.params.nanoId + "/" + req.params.titleURL);
 		}
 	})
 })
 
 //DELETE REVISITED
-app.delete("/revisited/:id/:titleURL", function(req,res) {
-	Revisited.findByIdAndRemove(req.params.id,function(err) {
+app.delete("/revisited/:nanoId/:titleURL", function(req,res) {
+	Revisited.findOneAndRemove({nanoId : req.params.nanoId},function(err) {
 		if(err) {
 			res.redirect("/blog");
 		} else {
-			Article.findOneAndRemove({referenceId : req.params.id}, function(err) {
+			Article.findOneAndRemove({nanoId : req.params.nanoId}, function(err) {
 				if(!err) {
 					res.redirect("/revisited");
 				}
@@ -1021,28 +1133,6 @@ app.get("/logout", function(req,res) {
 	res.redirect("/");
 })
 
-//PARTICULAR AUTHOR
-// app.get("/author/:name", function(req,res) {
-// 	Article.find({author:req.params.name}).sort([['_id', -1]]).exec(function(err,allArticle) {
-// 		if(err) {
-// 			console.log(err);
-// 		} else {
-// 			User.find({username : req.params.name},(function(err,user) {
-// 				if(err) {
-// 					console.log(err);
-// 				} else {
-// 					console.log(user);
-// 					console.log(user[0]["username"]);
-// 					res.render("showAuthor", { article : allArticle , name : req.params.name, user : user[0], title : req.params.name + " | OtakuPort"});
-// 				}
-				
-// 			})
-// 					// res.render("showAuthor", { article : allArticle , name : req.params.name,displayPic : user.profilePic, title : req.params.name + " | OtakuPort"});
-// 				)
-// 		}
-// 	})
-// })
-
 app.get("/author/:name", function(req,res,next) {
 	Article.find({ author : req.params.name}).sort([['_id', -1]]).exec(function(err,allArticle) {
 		if(err) {
@@ -1059,15 +1149,12 @@ app.get("/author/:name", function(req,res,next) {
 			console.log(err);
 			next();
 		} else {
-			// console.log(user);
-			// console.log(user[0]["username"]);
-			res.locals.name = req.params.name;
-			res.locals.user = user[0];
-			res.locals.title = req.params.name + " | OtakuPort";
-			res.locals.meta_desc = req.params.name + "| OtakuPort - The Base of Anime Culture";
-			res.locals.user.bio = marked( user[0].bio );
-			res.render("showAuthor", res.locals);
-
+        res.locals.name = req.params.name;
+        res.locals.user = user[0];
+        res.locals.title = req.params.name + " | OtakuPort";
+        res.locals.meta_desc = req.params.name + "| OtakuPort - The Base of Anime Culture";
+        res.locals.user.bio = marked( user[0].bio );
+        res.render("showAuthor", res.locals);
 		}
 	})
 })	
@@ -1078,23 +1165,28 @@ app.get("/author/:name", function(req,res,next) {
 // 			console.log(err);
 // 			next();
 // 		} else {
-// 			console.log(user);
-// 			// console.log(user[0]["username"]);
-// 			res.locals.name = req.params.name;
-// 			res.locals.user = user[0];
-// 			res.locals.title = req.params.name + " | OtakuPort";
+//       if(!user) {
+//         res.redirect("/");
+//       } else {
+//        res.locals.name = req.params.name;
+//         res.locals.user = user[0];
+//         res.locals.title = req.params.name + " | OtakuPort";
+//         res.locals.meta_desc = req.params.name + "| OtakuPort - The Base of Anime Culture";
+//         res.locals.user.bio = marked( user[0].bio );
+//         res.render("showAuthor", res.locals);
+//         next();
+//       Article.find({ author : req.params.name}).sort([['_id', -1]]).exec(function(err,allArticle) {
+//         if(err) {
+//           console.log(err);
+//           next(); 
+//         } else {
+//           next();
+//           res.locals.article = allArticle;
+//           res.render("showAuthor", res.locals);
 
-// 			Article.find({ author : req.params.name}).sort([['_id', -1]]).exec(function(err,allArticle) {
-// 				if(err) {
-// 					console.log(err);
-// 					next();	
-// 				} else {
-// 					next();
-// 					res.locals.article = allArticle;
-// 					res.render("showAuthor", res.locals);
-
-// 				}
-// 			})
+//         }
+//       })
+//       }
 // 		}
 // 	})
 // })	
@@ -1127,8 +1219,8 @@ app.get("/admin", isLoggedIn,  function(req,res) {
         })
 })
 
-app.post("/blog/:id/comments", function(req,res) {
-	Blog.findById(req.params.id, function(err, foundBlog) {
+app.post("/blog/:nanoId/comments", function(req,res) {
+	Blog.findOne({nanoId : req.params.nanoId}, function(err, foundBlog) {
 		if(err) {
 		console.log(err);
 	} else {
@@ -1138,7 +1230,7 @@ app.post("/blog/:id/comments", function(req,res) {
 			} else {
 				foundBlog.comments.push(comment);
 				foundBlog.save();
-				res.redirect("/blog/" + foundBlog._id);
+				res.redirect("/blog/" + foundBlog.nanoId);
 			}
 		})
 	}

@@ -1,79 +1,28 @@
+
 <% include partials/header %>
 
 <div id="news-page" class="jumbotron">
-        <a href="/news" class="post-type">NEWS</a>
-        <!-- <h1>NEWS</h1> -->
+        <h1>NEWS</h1>
 </div>
 
-<div class="news-all">
-
-<div class="container blog-review-laptop">
-
-        <a href="/news" class="post-detail trending">NEWS</a>
-
-      <div class="row">
-
-        <% news.forEach(function(news,index) { %>
-
-
-      <div class="col-md-4 col-sm-6 news-section">
-
-        <div class="thumbnail">
-          <div class="img">
-            <!-- <a href="#" class="sub-category">TV</a> -->
-          <a href="/news/<%= news._id %>/<%= news.titleURL %>"><img alt="<%= news.image.alt %>" src="/uploads/<%= news.image.src %>"></a>
-          <a href="/news/<%= news._id %>/<%= news.titleURL %>"><h2><%= news.title %></h2></a>
-          </div>
+<div class="flex-grid">
+  <% news.forEach(function(news,i) { %>
+      <div class="boxes">
+        <div class="img">
+          <a href="/news/<%= news.nanoId %>/<%= news.titleURL %>">
+            <picture>
+                <source srcset="/uploads/<%= news.image.src.substring(0, news.image.src.length - 4); %>-sharp-110x80.jpg" media="(max-width: 480px)">
+                <img class="img-responsive" alt="<%= news.image.alt %>" srcset="/uploads/<%= news.image.src.substring(0, news.image.src.length - 4); %>-sharp-355x170.jpg">
+            </picture> 
+          </a>
         </div>
-
-        <div class="caption">
-          <!-- <a href="/news/<%= news._id %>/<%= news.titleURL %>"><h3 style="color: #333333;"><%= news.title %></h3></a> -->
+        <div class="title">  
+          <a href="/news/<%= news.nanoId %>/<%= news.titleURL %>"><h2><%= news.title %></h2></a>
+          <p>By <a href="/author/<%= news.author.username %>" class="author"><%= news.author.username %></a> | <%= news.date %></p>
         </div>
-
-        <span><em>By <a class="author" href="/author/<%= news.author.username %>"><%= news.author.username %></a> on <%= news.date %></em></span><br><br>
-
-
-
       </div>
-
-      <% }) %>
-
-      </div>
-
-</div>
-
-<div class="container-more container" id="more-section-mobile"> <!-- Before 18/11, this div had a class "container-more"... -->
-
-                    <!--MOBILE VERSION-->
-
-        <a href="/news" class="post-detail trending news-section-laptop">NEWS</a>
-
-        <% news.forEach(function(news,index) { %>
-
-         <div class="row blog-section-laptop">
-         <div class="thumbnail" style="margin-left: -120px;">
-                      <div class="img">
-                        <a href="/news/<%= news._id %>/<%= news.titleURL %>"><img alt="<%= news.image.alt %>" src="/uploads/<%= news.image.src %>"></a>
-                      </div>
-                 </div>
-
-                    <div class="caption">
-                        <a href="/news/<%= news._id %>/<%= news.titleURL %>"><h1><%= news.title %></h1></a>
-                    </div>
-
-                    <div class="relative" style="font-size: 14px;margin-top: 10px;">
-                        <span class="author-date"> <!-- <a class="author" href="/author/<%= news.author %>"><%= news.author %></a> | --> <%= news.date %></span>
-                            <!-- <p>One Punch Man Season 3starts in 2018, the production is in full gear. Watch out!</p> -->
-                        </div>
-
-        </div>
-
-        <hr class="style7">
-
-     <% }) %>
-
-     </div>
-
+    <% }) %>  
 </div>
 
 <% include partials/footer %>
+

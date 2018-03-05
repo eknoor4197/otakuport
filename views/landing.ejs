@@ -1,474 +1,176 @@
-<% include partials/header %>
+<% include partials/header.ejs %>
 
-<!-- <div class="hero">
-        <h1>Anime Knight</h1>
-        <ul class="list-inline">
-          <li><a id="login" class="big ui inverted button" href="/login">Login</a></li>
-          <li><a id="signup" class="big ui inverted button" href="/register">Sign Up</a></li>
-        </ul>
+<div class="parent">
+  <% latest.forEach(function(latest,i) { %>
+    <% if ( i == 0 ) { %>
+  <div class="col">
+    <div class="img latest-colored">
+            <a href="/<%= latest.postType %>/<%= latest.nanoId %>/<%= latest.titleURL %>">
+              <picture>
+                <source srcset="/uploads/<%= latest.image.src.substring(0, latest.image.src.length - 4); %>-sharp-355x170.jpg" media="(max-width: 480px)">
+                <source srcset="/uploads/<%= latest.image.src.substring(0, latest.image.src.length - 4); %>-sharp-450x270.jpg" media="(max-width: 990px)">
+                <img class="img-responsive" alt="<%= latest.image.alt %>" srcset="/uploads/<%= latest.image.src.substring(0, latest.image.src.length - 4); %>-sharp-450x540.jpg">
+              </picture>
+            </a>
+            <a href="/<%= latest.postType %>" class="post-type"><%= latest.postType.toUpperCase(); %></a>
+            <a href="/<%= latest.postType %>/<%= latest.nanoId %>/<%= latest.titleURL %>"><h2><%= latest.title %></h2></a>
+        </div>
+  </div>
+  <div class="wrap">
+    <% } if ( i > 0 && i < 5 ) { %>
+    <div class="box">       
+            <div class="img latest-colored">
+                <a href="/<%= latest.postType %>/<%= latest.nanoId %>/<%= latest.titleURL %>">
+
+                  <picture>
+                      <source srcset="/uploads/<%= latest.image.src.substring(0, latest.image.src.length - 4); %>-sharp-355x170.jpg" media="(max-width: 360px)">
+                        <source srcset="/uploads/<%= latest.image.src.substring(0, latest.image.src.length - 4); %>-sharp-450x270.jpg" media="(max-width: 640px)">
+                      <source srcset="/uploads/<%= latest.image.src.substring(0, latest.image.src.length - 4); %>-sharp-355x170.jpg" media="(max-width: 768px)">
+                      <img class="img-responsive" alt="<%= latest.image.alt %>" srcset="/uploads/<%= latest.image.src.substring(0, latest.image.src.length - 4); %>-sharp-450x270.jpg">
+                  </picture>
+
+                </a>
+                <a href="/<%= latest.postType %>" class="post-type"><%= latest.postType.toUpperCase(); %></a>
+                <a href="/<%= latest.postType %>/<%= latest.nanoId %>/<%= latest.titleURL %>"><h2><%= latest.title %></h2></a>
+            </div> 
+    </div>
+    <% }}) %>
+  </div>
+</div>    
+
+<div class="container blog">
+  <h2><a class="post" href="/news">NEWS</a></h2>
 </div>
 
-<br><br><br><br>
- -->
-
-
-                <div id="landing">
-
-
-                <div class="row">
-
-                <!-- <div class="col-md-12 col-sm-6"> -->
-
-                    <% latest.forEach(function(latest,index) { %>
-
-                        <% if( index == 0 ) { %>
-
-
-                      <div class="col-md-4 col-sm-6 latest5">
-
-                                    <div class="thumbnail" id="main-1">
-                                      <div class="img latest-colored">
-                                        <a href="/<%= latest.postType %>/<%= latest.referenceId %>/<%= latest.titleURL %>"><img class="img-responsive" alt="<%= latest.image.alt %>" src="/uploads/<%= latest.image.src %>"></a>
-                                        <a href="/<%= latest.postType %>" class="post-type"><%= latest.postType.toUpperCase(); %></a>
-                                        <a href="/<%= latest.postType %>/<%= latest.referenceId %>/<%= latest.titleURL %>"><h2><%= latest.title %></h2></a>
-                                      </div>
-                                    </div>
-
-                                  </div>
-
-
-                    <% } else { %>
-
-
-                          <div class="col-md-4 col-sm-6 latest4">
-
-                                    <div class="main-other">
-                                      <div class="img latest-colored">
-                                        <a href="/<%= latest.postType %>/<%= latest.referenceId %>/<%= latest.titleURL %>"><img class="img-responsive" alt="<%= latest.image.alt %>" src="/uploads/<%= latest.image.src %>"></a>
-                                        <a href="/<%= latest.postType %>" class="post-type"><%= latest.postType.toUpperCase(); %></a>
-                                        <a href="/<%= latest.postType %>/<%= latest.referenceId %>/<%= latest.titleURL %>"><h2><%= latest.title %></h2></a>
-                                      </div>
-                                    </div>
-
-                                  </div>
-
-                        <% } %>
-
-                    <% }) %>
-                    <!-- </div> -->
-
-
-        </div>
-
-
-        </div>
-
-
-
-        </div>
-
-        <div class="container news-section-laptop-container blog-review-mobile" id="news-section-mobile">
-
-        <a href="/news" class="post-detail trending news-section-laptop">NEWS</a>
-
-        <!--<a href="/blog" class="post-detail" style="float:left;width:100px;">BLOG</a><hr style="color:black;height : 2px;">-->
-
-        <% news.forEach(function(news,index) { %>
-
-        <div class="row news-section-laptop">
-
-                <div class="thumbnail">
-                                <div class="img">
-                                <a href="/news/<%= news._id %>/<%= news.titleURL %>"><img alt="<%= news.image.alt %>" src="/uploads/<%= news.image.src %>"></a>
-                                </div>
-                        </div>
-
-                    <div class="caption">
-                        <a href="/news/<%= news._id %>/<%= news.titleURL %>"><h1><%= news.title %></h1></a>
-                    </div>
-
-                    <div class="relative">
-                        <span class="author-date"><a class="author" href="/author/<%= news.author.username %>"><%= news.author.username %></a> | <%= news.date %></span>
-                        <p><%- news.body.substring(0,600).split('.',1)[0]; %></p>
-
-                    </div>
-
-              </div>
-
-        <hr class="style7">
-
-        <% }) %>
-
-        </div>
-
-        <% featuredNews.forEach(function(featured,index) { %>
-
-                <% if(index == 0) { %>
-                  <div class="row featured-blog">
-              <div class="img wrapper">
-
-              <a href="/news/<%= featured._id %>/<%= featured.titleURL %>"><img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>"></a>
-                      <a href="/news" class="post-type"><i class="fa fa-certificate" style="padding-right: 6px;font-size: 12px;" aria-hidden="true"></i>NEWS | HIGHLIGHT</a>
-
-                      <div class="overlay caption">
-
-                  <a href="/news/<%= featured._id %>/<%= featured.titleURL %>"><h1> <%= featured.title %></h1></a>
-                        <span class="featured-author" ><em><a class="author" href="/author/<%= featured.author.username %>"><%= featured.author.username %></a> | <%= featured.date %></em></span>
-
-                      </div>
-                 </div>
-
-                <% }}) %>
-                </div>
-                
-               <div class="container laptop-only news-section-laptop-container" id="news-section">
-
-        <a href="/news" class="post-detail trending news-section-laptop">NEWS</a>
-
-        <% news.forEach(function(news,index) { %>
-
-                <div class="row news-section-laptop">
-
-                 <div class="thumbnail">
-                              <div class="img">
-                                <a href="/news/<%= news._id %>/<%= news.titleURL %>"><img alt="<%= news.image.alt %>" src="/uploads/<%= news.image.src %>"></a>
-                              </div>
-                         </div>
-
-                         <div class="caption">
-                                <a href="/news/<%= news._id %>/<%= news.titleURL %>"><h1><%= news.title %></h1></a>
-                         </div>
-
-                         <div class="relative" >
-                                <span class="author-date"><a class="author" href="/author/<%= news.author.username %>"><%= news.author.username %></a> | <%= news.date %></span>
-                                <!-- <p><%- news.body.substring(0,150); %></p> -->
-                                <p><%- news.body.substring(0,600).split('.',1)[0]; %>.</p>
-                                <!-- <p><%- news.body %></p> -->
-                     </div>
-
-                     </div>
-
-        <!-- </div> -->
-
-        <hr class="style7">
-
-
-    <% }) %>
-
-     <% featuredNews.forEach(function(featured,index) { %>
-
-     <% if( index == 0 ) { %>
-
-         <div class="news-section-laptop">
-
-                        <div class="featured-news-img-container-top">
-                                <div class="featured-news-img-container">
-                                        <div class="img featured-news-img">
-                                                <a href="/news" class="post-type"><i class="fa fa-certificate" aria-hidden="true"></i>NEWS | HIGHLIGHT</a>
-                                                <a href="/news/<%= featured._id %>/<%= featured.titleURL %>"><img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>"></a>
-                                                <a href="/news/<%= featured._id %>/<%= featured.titleURL %>"><h3 class="featured-news-caption" ><%= featured.title %></h3></a>
-                                                <h3 class="featured-news-author" ><em>By <%= featured.author.username %> on <%= featured.date %></em></h3>
-                                        </div>
-                                </div>
-                        </div>
-
-                </div>
-
-                <% } else { %>
-
-                <div class="news-section-laptop">
-
-                        <div class="featured-news-img-container-top">
-                                <div class="featured-news-img-container-1">
-                                        <div class="img featured-news-img">
-                                                <a href="/news" class="post-type"><i class="fa fa-certificate" aria-hidden="true"></i>NEWS | HIGHLIGHT</a>
-                                                <a href="/news/<%= featured._id %>/<%= featured.titleURL %>"><img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>"></a>
-                                                <!-- <a href="#"><h3 style="font-size : 32px;font-weight:900;left:20px;right:20px;bottom : 20px;"><%= featured.title %></h3></a> -->
-                                                <a href="/news/<%= featured._id %>/<%= featured.titleURL %>"><h3 class="featured-news-caption" ><%= featured.title %></h3></a>
-                                                <h3 class="featured-news-author" ><em>By <%= featured.author.username %> on <%= featured.date %></em></h3>
-                                        </div>
-                                </div>
-                        </div>
-
-                </div>
-
-         <% }}) %>
-
-</div>
-
-<div class="container news-section-laptop-container blog-review-mobile" id="blog-section-mobile">
-
-        <a href="/blog" class="post-detail trending news-section-laptop">BLOG</a>
-
-        <!--<a href="/blog" class="post-detail" style="float:left;width:100px;">BLOG</a><hr style="color:black;height : 2px;">-->
-
-        <% blog.forEach(function(blog,index) { %>
-
-        <div class="row news-section-laptop">
-
-                <div class="thumbnail">
-                                <div class="img">
-                                <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img alt="<%= blog.image.alt %>" src="/uploads/<%= blog.image.src %>"></a>
-                                </div>
-                        </div>
-
-                    <div class="caption">
-                        <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><h1><%= blog.title %></h1></a>
-                    </div>
-
-                    <div class="relative">
-                        <span class="author-date"><a class="author" href="/author/<%= blog.author.username %>"><%= blog.author.username %></a> | <%= blog.date %></span>
-                        <p><%- blog.body.substring(0,600).split('.',1)[0]; %></p>
-
-                    </div>
-
-        </div>
-
-        <hr class="style7">
-
-        <% }) %>
-
-
-        <!-- MOBILE FEATURED BLOG -->
-
-        <!-- <% featuredBlogs.forEach(function(featured,index) { %>
-                  <div class="row">
-              <div class="img wrapper">
-
-              <img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>">
-                      <a href="/blog" class="post-type"><i class="fa fa-certificate" style="padding-right: 6px;font-size: 12px;" aria-hidden="true"></i>BLOG | HIGHLIGHT</a>
-
-                      <div class="overlay caption">
-
-                  <a href="/blog/<%= featured._id %>/<%= featured.title %>"><h1> <%= featured.title %></h1></a>
-                        <span class="featured-author" ><em><a class="author" href="/author/<%= featured.author.username %>"><%= featured.author.username %></a> | <%= featured.date %></em></span>
-
-                      </div>
-                 </div>
-
-                <% }) %> -->
-                </div>
-
-                <% featuredBlogs.forEach(function(featured,index) { %>
-                  <div class="row featured-blog">
-              <div class="img wrapper">
-
-                <a href="/blog/<%= featured._id %>/<%= featured.titleURL %>"><img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>"></a>
-                      <a href="/blog" class="post-type"><i class="fa fa-certificate" style="padding-right: 6px;font-size: 12px;" aria-hidden="true"></i>BLOG | HIGHLIGHT</a>
-
-                      <div class="overlay caption">
-
-                  <a href="/blog/<%= featured._id %>/<%= featured.titleURL %>"><h1> <%= featured.title %></h1></a>
-                        <span class="featured-author" ><em><a class="author" href="/author/<%= featured.author.username %>"><%= featured.author.username %></a> | <%= featured.date %></em></span>
-
-                      </div>
-                 </div>
-
-                <% }) %>
-                </div>
-
-</div>
-
-</div>
-
-
-<div class="container blog-review-laptop" id="blog-section">
-
-        <a href="/blog" class="post-detail trending">BLOG</a>
-
-            <div class="row">
-
-                <% blog.forEach(function(blog,index) { %>
-
-
-                  <div class="col-md-4 col-sm-6 news-section">
-
-                    <div class="thumbnail">
-                      <div class="img">
-                        <!-- <a href="#" class="sub-category">TV</a> -->
-                        <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><img alt="<%= blog.image.alt %>" src="/uploads/<%= blog.image.src %>"></a>
-                        <a href="/blog/<%= blog._id %>/<%= blog.titleURL %>"><h2><%= blog.title %></h2></a>
-                      </div>
-                    </div>
-
-                    <div class="caption">
-                        <!-- <a href="/blog/<%= blog._id %>/<%= blog.title %>"><h3 style="color: #333333;"><%= blog.title %></h3></a> -->
-                    </div>
-
-                    <span class="author-date"><em>By <a class="author" href="/author/<%= blog.author.username %>"><%= blog.author.username %></a> on <%= blog.date %></em></span><br><br>
-
-                  </div>
-
-            <% }) %>
-
+<section class="container news blog">
+    <div class="non-feat">
+      <% news.forEach(function(news,i) { %>
+      <div class="article">
+          <div class="img">
+             <a href="/news/<%= news.nanoId %>/<%= news.titleURL %>">
+              <picture>
+                <source srcset="/uploads/<%= news.image.src.substring(0, news.image.src.length - 4); %>-sharp-110x80.jpg" media="(max-width: 480px)">
+                <img class="img-responsive" alt="<%= news.image.alt %>" srcset="/uploads/<%= news.image.src.substring(0, news.image.src.length - 4); %>-sharp-355x170.jpg">
+              </picture>
+            </a>
+          </div>
+          <div class="title">
+            <a href="/news/<%= news.nanoId %>/<%= news.titleURL %>"><h2><%= news.title %></h2></a>
+            <p>By <a href="/author/<%= news.author.username %>" class="author"><%= news.author.username %></a> | <%= news.date %></p>
+          </div>
+      </div> 
+  <% }) %>
+  </div> 
+    <div class="feat">
+    <% featuredNews.forEach(function(news,i) { %>
+      <div class="featured-article">
+        <div class="article">
+            <div class="img">
+              <a href="/news" class="post-type">NEWS | FEATURED %></a>
+               <a href="/news/<%= news.nanoId %>/<%= news.titleURL %>">
+                 <picture>
+                    <source srcset="/uploads/<%= news.image.src.substring(0, news.image.src.length - 4); %>-sharp-450x270.jpg" media="(max-width: 640px)">
+                    <source srcset="/uploads/<%= news.image.src.substring(0, news.image.src.length - 4); %>-sharp-800x200.jpg" media="(max-width: 990px)">
+                    <img class="img-responsive" alt="<%= news.image.alt %>" srcset="/uploads/<%= news.image.src.substring(0, news.image.src.length - 4); %>-sharp-330x375.jpg">
+                 </picture>
+              </a>
+              <a href="/news/<%= news.nanoId %>/<%= news.titleURL %>"><h2><%= news.title %></h2></a>
+              <span class="featured-author" ><em>By <a class="author" href="/author/<%= news.author.username %>"><%= news.author.username %></a> | <%= news.date %></em></span>
             </div>
-
-            <!-- </div> -->
-
-
-
-
-                <% featuredBlogs.forEach(function(featured,index) { %>
-                  <div class="row">
-              <div class="img wrapper">
-
-                <a href="/blog/<%= featured._id %>/<%= featured.titleURL %>"><img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>"></a>
-                      <a href="/blog" class="post-type"><i class="fa fa-certificate" style="padding-right: 6px;font-size: 12px;" aria-hidden="true"></i>BLOG | HIGHLIGHT</a>
-
-                      <div class="overlay caption">
-
-                  <a href="/blog/<%= featured._id %>/<%= featured.titleURL %>"><h1> <%= featured.title %></h1></a>
-                        <span class="featured-author" ><em><a class="author" href="/author/<%= featured.author.username %>"><%= featured.author.username %></a> | <%= featured.date %></em></span>
-
-                      </div>
-                 </div>
-
-                <% }) %>
-                </div>
-
-
-</div>
-
-</div>
-
-<div class="container news-section-laptop-container blog-review-mobile" id="review-section-mobile">
-
-        <a href="/review" class="post-detail trending news-section-laptop">REVIEWS</a>
-
- <% review.forEach(function(review,index) { %>
-
-        <div class="row news-section-laptop">
-
-                 <div class="thumbnail">
-                              <div class="img">
-                                <a href="/review/<%= review._id %>/<%= review.titleURL %>"><img alt="<%= review.image.alt %>" src="/uploads/<%= review.image.src %>"></a>
-                              </div>
-                         </div>
-
-                         <div class="caption">
-                                <a href="/review/<%= review._id %>/<%= review.titleURL %>"><h1><%= review.title %></h1></a>
-                         </div>
-
-                         <div class="relative">
-                        <span class="author-date"> <a class="author" href="/author/<%= review.author.username %>"><%= review.author.username %></a> | <%= review.date %></span>
-                            <p><%- review.body.substring(0,600).split('.',1)[0]; %></p>
-                        </div>
-
-     </div>
-
-     <hr class="style7">
-
-     <% }) %>
-
-      <!--  MOBILE FEATURED REVIEW
-
-
-                <% featuredReviews.forEach(function(featured,index) { %>
-
-                  <div class="row">
-              <div class="img wrapper">
-
-              <img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>">
-                      <a href="/review" class="post-type"><i class="fa fa-certificate" style="padding-right: 6px;font-size: 12px;" aria-hidden="true"></i>REVIEW | HIGHLIGHT</a>
-
-                      <div class="overlay caption">
-
-                  <a href="/review/<%= featured._id %>/<%= featured.title %>"><h1> <%= featured.title %> : <%= featured.intro %></h1></a>
-                        <span class="featured-author" ><em><a class="author" href="/author/<%= featured.author.username %>"><%= featured.author %></a> | <%= featured.date %></em></span>
-
-                      </div>
-                 </div>
-
-            <% }) %> -->
         </div>
+        </div>
+      <% }) %> 
+    <!-- </div> -->
+</section>
 
-  <% featuredReviews.forEach(function(featured,index) { %>
-
-                  <div class="row featured-blog">
-              <div class="img wrapper">
-
-                <a href="/review/<%= featured._id %>/<%= featured.titleURL %>"><img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>"></h1></a>
-                      <a href="/review" class="post-type"><i class="fa fa-certificate" style="padding-right: 6px;font-size: 12px;" aria-hidden="true"></i>REVIEW | HIGHLIGHT</a>
-
-                      <div class="overlay caption">
-
-                  <a href="/review/<%= featured._id %>/<%= featured.titleURL %>"><h1> <%= featured.title %> </h1></a>
-                        <span class="featured-author" ><em><a class="author" href="/author/<%= featured.author.username %>"><%= featured.author.username %></a> | <%= featured.date %></em></span>
-
-                      </div>
-                 </div>
-
-            <% }) %>
-
-
+<div class="container blog">
+  <h2><a class="post" href="/blog">BLOG</a></h2>
 </div>
 
+<div class="flex-grid">
+  <% blog.forEach(function(blog,i) { %>
+      <div class="boxes">
+        <div class="img">
+          <a href="/blog/<%= blog.nanoId %>/<%= blog.titleURL %>">
+            <picture>
+                <source srcset="/uploads/<%= blog.image.src.substring(0, blog.image.src.length - 4); %>-sharp-110x80.jpg" media="(max-width: 480px)">
+                <img class="img-responsive" alt="<%= blog.image.alt %>" srcset="/uploads/<%= blog.image.src.substring(0, blog.image.src.length - 4); %>-sharp-355x170.jpg">
+            </picture>      
+          </a>
+        </div>
+        <div class="title">  
+          <a href="/blog/<%= blog.nanoId %>/<%= blog.titleURL %>"><h2><%= blog.title %></h2></a>
+          <p>By <a href="/author/<%= blog.author.username %>" class="author"><%= blog.author.username %></a> | <%= blog.date %></p>
+        </div>
+      </div>
+    <% }) %>  
 </div>
 
-<div class="container blog-review-laptop" id="review-section">
-
-        <a href="/review" class="post-detail trending">REVIEWS</a>
-
-            <div class="row">
-
-                <% review.forEach(function(review,index) { %>
-
-
-                  <div class="col-md-4 col-sm-6 news-section">
-
-                    <div class="thumbnail">
-                      <div class="img">
-                        <!-- <a href="#" class="sub-category">TV</a> -->
-                        <a href="/review/<%= review._id %>/<%= review.titleURL %>"><img alt="<%= review.image.alt %>" src="/uploads/<%= review.image.src %>"></a>
-                        <a href="/review/<%= review._id %>/<%= review.titleURL %>"><h2><%= review.title %></h2></a>
-                      </div>
-                    </div>
-
-                    <div class="caption">
-                        <!-- <a href="/review/<%= review._id %>/<%= review.title %>"><h3 style="color: #333333;"><%= review.title %></h3></a> -->
-                    </div>
-
-                    <span class="author-date"><em>By <a class="author" href="/author/<%= review.author.username %>"><%= review.author.username %></a> on <%= review.date %></em></span><br><br>
-
-
-
-                  </div>
-
-            <% }) %>
-
+<div class="feat">
+    <% featuredBlogs.forEach(function(blog,i) { %>
+      <div class="featured-article">
+        <div class="article">
+            <div class="img">
+              <a href="/blog" class="post-type">BLOG | FEATURED %></a>
+              <a href="/blog/<%= blog.nanoId %>/<%= blog.titleURL %>">
+                <picture>
+                    <source srcset="/uploads/<%= blog.image.src.substring(0, blog.image.src.length - 4); %>-sharp-450x270.jpg" media="(max-width: 640px)">
+                    <source srcset="/uploads/<%= blog.image.src.substring(0, blog.image.src.length - 4); %>-sharp-800x200.jpg" media="(max-width: 990px)">
+                    <img class="img-responsive" alt="<%= blog.image.alt %>" srcset="/uploads/<%= blog.image.src.substring(0, blog.image.src.length - 4); %>-sharp-1200x400.jpg">
+                </picture>
+              </a>
+              <a href="/blog/<%= blog.nanoId %>/<%= blog.titleURL %>"><h2><%= blog.title %></h2></a>
+              <span class="featured-author" >By <a href="/author/<%= blog.author.username %>"><%= blog.author.username %></a> on <%= blog.date %></span>
             </div>
-
-            <!-- </div> -->
-
-
-
-
-                <% featuredReviews.forEach(function(featured,index) { %>
-                  <div class="row">
-              <div class="img wrapper">
-
-                <a href="/review/<%= featured._id %>/<%= featured.titleURL %>"><img class="img-responsive" alt="<%= featured.image.alt %>" src="/uploads/<%= featured.image.src %>"></a>
-                      <a href="/review" class="post-type"><i class="fa fa-certificate" style="padding-right: 6px;font-size: 12px;" aria-hidden="true"></i>REVIEW | HIGHLIGHT</a>
-
-                      <div class="overlay caption">
-
-                  <a href="/review/<%= featured._id %>/<%= featured.titleURL %>"><h1> <%= featured.title %></h1></a>
-                        <span class="featured-author" ><em><a class="author" href="/author/<%= featured.author.username %>"><%= featured.author.username %></a> | <%= featured.date %></em></span>
-
-                      </div>
-                 </div>
-
-                <% }) %>
-                </div>
-
-
+      </div>
+    <% }) %> 
+</div>
 </div>
 
+<div class="container blog">
+  <h2><a class="post" href="/review">REVIEWS</a></h2>
 </div>
 
+<div class="flex-grid">
+  <% review.forEach(function(review,i) { %>
+      <div class="boxes">
+        <div class="img">
+          <a href="/review/<%= review.nanoId %>/<%= review.titleURL %>">
+            <picture>
+                <source srcset="/uploads/<%= review.image.src.substring(0, review.image.src.length - 4); %>-sharp-110x80.jpg" media="(max-width: 480px)">
+                <img class="img-responsive" alt="<%= review.image.alt %>" srcset="/uploads/<%= review.image.src.substring(0, review.image.src.length - 4); %>-sharp-355x170.jpg">
+            </picture>   
+          </a>
+        </div>
+        <div class="title">  
+          <a href="/review/<%= review.nanoId %>/<%= review.titleURL %>"><h2><%= review.title %></h2></a>
+          <p>By <a href="/author/<%= review.author.username %>" class="author"><%= review.author.username %></a> | <%= review.date %></p>
+        </div>
+      </div>
+    <% }) %>  
+</div>
+
+<div class="feat">
+    <% featuredReviews.forEach(function(review,i) { %>
+      <div class="featured-article">
+        <div class="article">
+            <div class="img">
+              <a href="/review" class="post-type">REVIEW | FEATURED %></a>
+              <a href="/review/<%= review.nanoId %>/<%= review.titleURL %>">
+                <picture>
+                    <source srcset="/uploads/<%= review.image.src.substring(0, review.image.src.length - 4); %>-sharp-450x270.jpg" media="(max-width: 640px)">
+                    <source srcset="/uploads/<%= review.image.src.substring(0, review.image.src.length - 4); %>-sharp-800x200.jpg" media="(max-width: 990px)">
+                    <img class="img-responsive" alt="<%= review.image.alt %>" srcset="/uploads/<%= review.image.src.substring(0, review.image.src.length - 4); %>-sharp-1200x400.jpg">
+                </picture>
+              </a>
+              <a href="/review/<%= review.nanoId %>/<%= review.titleURL %>"><h2><%= review.title %></h2></a>
+              <span class="featured-author" >By <a href="/author/<%= review.author.username %>"><%= review.author.username %></a> on <%= review.date %></span>
+            </div>
+            </div>
+      </div>
+    <% }) %> 
+</div>
 </div>
 
 
-<% include partials/footer %>
-  
-        
+<% include partials/footer.ejs %>
